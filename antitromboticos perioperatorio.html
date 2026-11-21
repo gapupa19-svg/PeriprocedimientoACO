@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antitrombóticos perioperatorios · Consenso 2025</title>
+<style>
+:root{
+  --bg:#f5f6f8;--card:#fff;--ink:#1c2430;--mut:#5f6b7a;--line:#dfe3e8;
+  --pri:#8e1b2c;--pri2:#b3263b;--blue:#1d5fa8;
+  --alto:#c0392b;--altobg:#fdecea;--mod:#b9770e;--modbg:#fff4de;--bajo:#1e8449;--bajobg:#e6f4ea;--min:#1d5fa8;--minbg:#e7f0fb;
+  --lmwh:#6c3fa0;--lmwhbg:#efe8f8;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.45}
+header{background:linear-gradient(135deg,var(--pri),var(--pri2));color:#fff;padding:16px 16px 12px}
+header h1{margin:0;font-size:1.15rem;letter-spacing:.2px}
+header p{margin:4px 0 0;font-size:.8rem;opacity:.85}
+.steps{display:flex;gap:6px;margin-top:12px}
+.steps button{flex:1;border:0;border-radius:8px;padding:8px 4px;font-size:.78rem;font-weight:600;background:rgba(255,255,255,.18);color:#fff;cursor:pointer}
+.steps button.on{background:#fff;color:var(--pri)}
+.steps button:disabled{opacity:.45;cursor:default}
+main{max-width:860px;margin:0 auto;padding:14px 12px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.card h2{font-size:1rem;margin:0 0 10px;color:var(--pri)}
+.card h3{font-size:.9rem;margin:14px 0 8px;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font-size:.88rem;cursor:pointer;color:var(--ink)}
+.chip.on{border-color:var(--pri);background:var(--pri);color:#fff}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:7px 4px;border-bottom:1px dashed #eef0f3;cursor:pointer;font-size:.9rem}
+.chk:last-child{border-bottom:0}
+.chk input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--pri)}
+.chk small{color:var(--mut);display:block}
+select,input[type=number],input[type=search],input.tx{width:100%;padding:10px;border:1.5px solid var(--line);border-radius:8px;font-size:.95rem;background:#fff;color:var(--ink)}
+label.lbl{display:block;font-size:.8rem;font-weight:600;color:var(--mut);margin:10px 0 5px;text-transform:uppercase;letter-spacing:.3px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.row{grid-template-columns:1fr}}
+.hide{display:none!important}
+.risk{display:inline-block;border-radius:6px;padding:3px 10px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.3px}
+.r-alto{background:var(--altobg);color:var(--alto)}
+.r-mod{background:var(--modbg);color:var(--mod)}
+.r-bajo{background:var(--bajobg);color:var(--bajo)}
+.r-min{background:var(--minbg);color:var(--min)}
+.live{margin-top:12px;padding:10px 12px;border-radius:10px;background:#f8f9fb;border:1px solid var(--line);font-size:.88rem}
+.live b{font-weight:700}
+.nav{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 12px;display:flex;gap:10px;justify-content:center;z-index:5}
+.nav button{max-width:420px;flex:1;padding:12px;border-radius:10px;border:0;font-weight:700;font-size:.95rem;cursor:pointer}
+.btn-p{background:var(--pri);color:#fff}
+.btn-s{background:#eef0f3;color:var(--ink)}
+.btn-p:disabled{background:#c9b3b8;cursor:default}
+.proclist{max-height:330px;overflow:auto;border:1px solid var(--line);border-radius:8px;margin-top:8px}
+.proc{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 10px;border-bottom:1px solid #f0f2f5;cursor:pointer;font-size:.88rem}
+.proc:hover{background:#fafbfc}
+.proc.on{background:#fff6f7;outline:2px solid var(--pri);outline-offset:-2px}
+.proc .sp{font-size:.72rem;color:var(--mut);display:block}
+.proc .risk{flex:none;font-size:.7rem;padding:2px 7px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.sbox{border-radius:10px;padding:12px;border:1px solid var(--line);background:#fff}
+.sbox .k{font-size:.72rem;text-transform:uppercase;color:var(--mut);font-weight:700;letter-spacing:.3px}
+.sbox .v{margin-top:6px}
+.sbox .d{font-size:.8rem;color:var(--mut);margin-top:6px}
+.alert{border-left:5px solid;border-radius:8px;padding:10px 12px;margin:10px 0;font-size:.9rem}
+.a-red{border-color:var(--alto);background:var(--altobg)}
+.a-amb{border-color:var(--mod);background:var(--modbg)}
+.a-grn{border-color:var(--bajo);background:var(--bajobg)}
+.a-blu{border-color:var(--blue);background:var(--minbg)}
+.a-pur{border-color:var(--lmwh);background:var(--lmwhbg)}
+.alert>b:first-child{display:block;margin-bottom:3px}
+.alert ul{margin:4px 0 0;padding-left:18px}
+.alert li{margin:3px 0}
+.pearl{border:1px dashed #c9a227;background:#fffbea;border-radius:8px;padding:9px 12px;font-size:.85rem;margin:10px 0}
+.pearl::before{content:"💡 Perla: ";font-weight:700}
+.tl{overflow-x:auto;margin:10px 0 4px}
+.tl table{border-collapse:separate;border-spacing:3px;min-width:100%;font-size:.75rem}
+.tl th{font-weight:700;color:var(--mut);padding:3px 2px;text-align:center;white-space:nowrap}
+.tl td{text-align:center;border-radius:6px;padding:6px 3px;min-width:44px;white-space:nowrap;font-weight:600}
+.tl td.lab{text-align:left;background:none;color:var(--ink);font-weight:700;min-width:96px;white-space:normal}
+.c-take{background:#dff1e5;color:#1e6b3a}
+.c-half{background:#fff1c9;color:#8a5a00}
+.c-off{background:#f1f2f4;color:#9aa3ad}
+.c-lmwh{background:var(--lmwhbg);color:var(--lmwh)}
+.c-iv{background:#e3eefc;color:#1d4f8a}
+.c-surg{background:var(--pri);color:#fff}
+.c-rest{background:#d4efe0;color:#155c33;outline:2px solid #2e9e5b}
+.c-wait{background:#fdecea;color:#a33}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:.72rem;color:var(--mut);margin-top:4px}
+.legend span{display:inline-flex;align-items:center;gap:4px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px}
+table.dt{border-collapse:collapse;width:100%;font-size:.84rem;margin:8px 0}
+table.dt th,table.dt td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+table.dt th{background:#f6f7f9}
+.foot{font-size:.75rem;color:var(--mut);padding:6px 2px}
+.foot a{color:var(--blue)}
+.score{font-weight:700;color:var(--pri)}
+.note{font-size:.78rem;color:var(--mut);margin-top:6px}
+.copyok{font-size:.8rem;color:var(--bajo);margin-left:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Manejo perioperatorio de antitrombóticos</h1>
+  <p>Consenso multidisciplinar 2025 (SEC, SEDAR, SEMI, SETH y 24 sociedades más) · Rev Esp Cardiol 2026;79:68-79</p>
+  <div class="steps">
+    <button id="s1" class="on" onclick="go(1)">1 · Paciente</button>
+    <button id="s2" onclick="go(2)" disabled>2 · Procedimiento</button>
+    <button id="s3" onclick="go(3)" disabled>3 · Valoración</button>
+    <button id="s4" onclick="go(4)" disabled>4 · Paciente</button>
+  </div>
+</header>
+
+<main>
+<!-- ================= PASO 1 ================= -->
+<section id="p1">
+  <div class="card">
+    <h2>Tipo de tratamiento antitrombótico</h2>
+    <div class="chips" id="tipoChips">
+      <button class="chip" data-v="ac">Anticoagulación</button>
+      <button class="chip" data-v="ap">Antiagregación</button>
+      <button class="chip" data-v="both">Ambos</button>
+    </div>
+  </div>
+
+  <!-- ===== ANTICOAGULACIÓN ===== -->
+  <div class="card hide" id="acCard">
+    <h2>Anticoagulación</h2>
+    <div class="row">
+      <div>
+        <label class="lbl">Fármaco</label>
+        <select id="acDrug">
+          <option value="">— Seleccionar —</option>
+          <optgroup label="AVK"><option value="aceno">Acenocumarol</option><option value="warf">Warfarina</option></optgroup>
+          <optgroup label="ACOD"><option value="dabi">Dabigatrán</option><option value="api">Apixabán</option><option value="riva">Rivaroxabán</option><option value="edo">Edoxabán</option></optgroup>
+        </select>
+      </div>
+      <div id="crclBox">
+        <label class="lbl">Aclaramiento de creatinina (Cockcroft-Gault, ml/min)</label>
+        <input type="number" id="crcl" min="0" max="200" placeholder="p. ej. 65">
+      </div>
+      <div id="inrBox" class="hide">
+        <label class="lbl">INR actual</label>
+        <select id="inr">
+          <option value="rango">En rango (2-3)</option>
+          <option value="supra">Supraterapéutico (&gt;3)</option>
+          <option value="infra">Infraterapéutico (&lt;2)</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>Causa de la anticoagulación <span class="note">(puede marcar varias)</span></h3>
+    <div class="chips" id="indChips">
+      <button class="chip" data-v="valv">Válvula mecánica</button>
+      <button class="chip" data-v="fa">Fibrilación auricular</button>
+      <button class="chip" data-v="tev">Tromboembolia venosa</button>
+      <button class="chip" data-v="otras">Otras indicaciones</button>
+    </div>
+
+    <div id="ind-valv" class="hide">
+      <h3>Válvula cardiaca mecánica</h3>
+      <label class="lbl">Posición / tipo</label>
+      <select id="valvPos">
+        <option value="aobi">Aórtica – prótesis bidisco</option>
+        <option value="mitral">Mitral</option>
+        <option value="aoant">Aórtica – generación antigua (bola enjaulada o disco basculante)</option>
+      </select>
+      <label class="chk"><input type="checkbox" id="valvIctus"><span>Ictus/AIT reciente (&lt; 3 meses) o durante un periodo perioperatorio previo</span></label>
+      <label class="chk"><input type="checkbox" id="valvTromb"><span>Trombosis valvular previa</span></label>
+    </div>
+
+    <div id="ind-fa" class="hide">
+      <h3>Fibrilación auricular – CHA₂DS₂-VA <span class="score" id="chaScore">0</span></h3>
+      <label class="chk"><input type="checkbox" class="cha" data-p="1"><span>Insuficiencia cardiaca crónica</span></label>
+      <label class="chk"><input type="checkbox" class="cha" data-p="1"><span>Hipertensión</span></label>
+      <label class="chk"><input type="checkbox" class="cha" data-p="1"><span>Diabetes mellitus</span></label>
+      <label class="chk"><input type="radio" name="edad" class="cha" data-p="0" checked><span>Edad &lt; 65 años</span></label>
+      <label class="chk"><input type="radio" name="edad" class="cha" data-p="1"><span>Edad 65-74 años <small>+1</small></span></label>
+      <label class="chk"><input type="radio" name="edad" class="cha" data-p="2"><span>Edad ≥ 75 años <small>+2</small></span></label>
+      <label class="chk"><input type="checkbox" class="cha" data-p="1"><span>Enfermedad vascular <small>Arteriopatía periférica, cardiopatía isquémica o placa aórtica complicada</small></span></label>
+      <label class="chk"><input type="checkbox" class="cha" data-p="2"><span>Ictus, AIT o tromboembolia arterial previa <small>+2</small></span></label>
+      <h3>Criterios adicionales de alto riesgo</h3>
+      <label class="chk"><input type="checkbox" id="faReum"><span>Valvulopatía reumática mitral</span></label>
+      <label class="chk"><input type="checkbox" id="faIctus"><span>Ictus/AIT reciente (&lt; 3 meses)</span></label>
+    </div>
+
+    <div id="ind-tev" class="hide">
+      <h3>Tromboembolia venosa</h3>
+      <label class="lbl">Tiempo desde el episodio de TEV (instauración del tratamiento)</label>
+      <select id="tevTime">
+        <option value="lt3">&lt; 3 meses</option>
+        <option value="ge3">≥ 3 meses</option>
+      </select>
+      <label class="chk"><input type="checkbox" id="tevCancer"><span>Antecedente de TEV con cáncer activo de alto riesgo trombótico <small>Páncreas, síndromes mieloproliferativos, tumor cerebral primario, gástrico o esofágico</small></span></label>
+      <label class="chk"><input type="checkbox" id="tevRec"><span>TEV recurrente <small>Por sí sola: riesgo bajo-moderado si el último episodio fue hace ≥ 3 meses</small></span></label>
+    </div>
+
+    <div id="ind-otras" class="hide">
+      <h3>Otras indicaciones</h3>
+      <label class="chk"><input type="checkbox" class="otA"><span>Trombofilia grave <small>Déficit de proteína C, S o antitrombina; homocigosis FV Leiden o G20210A; doble heterocigosis; trombofilias múltiples</small></span></label>
+      <label class="chk"><input type="checkbox" class="otA"><span>Síndrome antifosfolipídico</span></label>
+      <label class="chk"><input type="checkbox" class="otA"><span>Ictus perioperatorio previo</span></label>
+      <label class="chk"><input type="checkbox" class="otA"><span>Ictus cardioembólico reciente (&lt; 3 meses)</span></label>
+      <label class="chk"><input type="checkbox" class="otA"><span>Trombo intracavitario</span></label>
+      <label class="chk"><input type="checkbox" class="otA"><span>Trombo aórtico flotante</span></label>
+      <label class="chk"><input type="checkbox" id="otB"><span>Trombofilia no grave <small>Heterocigosis FV Leiden o protrombina 20210A</small></span></label>
+    </div>
+
+    <div class="live" id="acLive"></div>
+  </div>
+
+  <!-- ===== ANTIAGREGACIÓN ===== -->
+  <div class="card hide" id="apCard">
+    <h2>Antiagregación</h2>
+    <label class="lbl">Pauta antiagregante</label>
+    <select id="apDrug">
+      <option value="">— Seleccionar —</option>
+      <optgroup label="Monoterapia">
+        <option value="aas">Ácido acetilsalicílico (AAS)</option>
+        <option value="clopi">Clopidogrel</option>
+        <option value="tica">Ticagrelor</option>
+        <option value="prasu">Prasugrel</option>
+      </optgroup>
+      <optgroup label="Doble antiagregación (TAPD)">
+        <option value="aas+clopi">AAS + clopidogrel</option>
+        <option value="aas+tica">AAS + ticagrelor</option>
+        <option value="aas+prasu">AAS + prasugrel</option>
+      </optgroup>
+      <optgroup label="Otros">
+        <option value="trifl">Triflusal</option>
+        <option value="cilo">Cilostazol</option>
+        <option value="dipi">Dipiridamol</option>
+      </optgroup>
+    </select>
+
+    <label class="lbl">Indicación</label>
+    <select id="apInd">
+      <option value="prim">Prevención primaria</option>
+      <option value="scc">Cardiopatía isquémica crónica (con o sin ICP electiva)</option>
+      <option value="sca">Síndrome coronario agudo</option>
+      <option value="ictus">Ictus isquémico / AIT</option>
+      <option value="eap">Enfermedad arterial periférica (incl. revascularización endovascular)</option>
+    </select>
+
+    <div id="apTimeBox">
+      <label class="lbl">Tiempo desde el episodio agudo / revascularización</label>
+      <select id="apTime">
+        <option value="0">&lt; 2 semanas</option>
+        <option value="1">2 semanas – 1 mes</option>
+        <option value="2">1 – 3 meses</option>
+        <option value="3">3 – 6 meses</option>
+        <option value="4">6 – 12 meses</option>
+        <option value="5" selected>&gt; 12 meses</option>
+      </select>
+      <div id="dcbBox">
+        <label class="chk"><input type="checkbox" id="apDCB"><span>ICP solo con balón farmacoactivo (sin stent) <small>El intervalo de alto riesgo podría reducirse a las 2 primeras semanas</small></span></label>
+        <label class="chk"><input type="checkbox" id="apNoStent"><span>Revascularización quirúrgica o tratamiento exclusivamente médico <small>Riesgo trombótico menor que tras ICP con stent</small></span></label>
+      </div>
+    </div>
+
+    <div id="scaFactors" class="hide">
+      <h3>Factores de alto riesgo trombótico tras SCA</h3>
+      <label class="chk"><input type="checkbox" class="scaF"><span>Episodio vascular agudo recurrente</span></label>
+      <label class="chk"><input type="checkbox" class="scaF"><span>Diabetes mellitus</span></label>
+      <label class="chk"><input type="checkbox" class="scaF"><span>Ictus o AIT previo</span></label>
+      <label class="chk"><input type="checkbox" class="scaF"><span>Insuficiencia renal crónica</span></label>
+      <label class="chk"><input type="checkbox" class="scaF"><span>Historia de trombosis de stent</span></label>
+      <label class="chk"><input type="checkbox" class="scaF"><span>Enfermedad polivascular</span></label>
+      <label class="chk"><input type="checkbox" class="scaF"><span>ICP compleja <small>&gt; 3 stents, tronco común, oclusión crónica, bifurcación con &gt; 2 stents, stents &gt; 60 mm, vaso único permeable o &gt; 3 lesiones tratadas</small></span></label>
+    </div>
+
+    <div class="live" id="apLive"></div>
+  </div>
+</section>
+
+<!-- ================= PASO 2 ================= -->
+<section id="p2" class="hide">
+  <div class="card">
+    <h2>Carácter de la intervención</h2>
+    <div class="chips" id="urgChips">
+      <button class="chip on" data-v="prog">Programada</button>
+      <button class="chip" data-v="dif">Urgencia diferida (&gt; 24 h)</button>
+      <button class="chip" data-v="urg">Urgente (6-24 h)</button>
+      <button class="chip" data-v="emer">Emergente (&lt; 6 h)</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Procedimiento por especialidad</h2>
+    <label class="lbl">Buscar en todas las especialidades</label>
+    <input type="search" id="q" placeholder="p. ej. colonoscopia, artroplastia, TAVI…">
+    <label class="lbl">Especialidad</label>
+    <select id="spec"></select>
+    <div class="proclist" id="plist"></div>
+    <div class="live" id="procLive">Seleccione un procedimiento.</div>
+  </div>
+
+  <div class="card">
+    <h2>Modificadores</h2>
+    <label class="chk"><input type="checkbox" id="neurax"><span>Se realizará anestesia neuroaxial o bloqueo con catéter <small>Eleva el riesgo hemorrágico a ALTO</small></span></label>
+    <label class="chk"><input type="checkbox" id="cabg"><span>Cirugía de revascularización coronaria <small>Permite acortar la suspensión de ticagrelor a 3 días</small></span></label>
+    <h3>Factores del paciente que aumentan el riesgo hemorrágico</h3>
+    <div id="pbf"></div>
+  </div>
+</section>
+
+<!-- ================= PASO 3 ================= -->
+<section id="p3" class="hide">
+  <div id="out"></div>
+  <div class="card">
+    <button class="btn-p" style="width:100%;padding:12px;border-radius:10px;border:0;font-weight:700" onclick="copySummary()">Copiar resumen para la historia clínica</button>
+    <button class="btn-s" style="width:100%;padding:12px;border-radius:10px;border:0;font-weight:700;margin-top:8px" onclick="go(4)">Descargar para el paciente</button>
+    <span id="copyok" class="copyok"></span>
+  </div>
+</section>
+
+<!-- ================= PASO 4 ================= -->
+<section id="p4" class="hide">
+  <div class="card">
+    <h2>Descargar para el paciente</h2>
+    <p class="note" style="margin-top:0">Informe sencillo con calendario para imprimir y entregar en consulta. Los campos son opcionales; con la fecha de la intervención el calendario muestra días reales.</p>
+    <div class="row">
+      <div><label class="lbl">Nombre del paciente</label><input type="text" id="pName" class="tx"></div>
+      <div><label class="lbl">Intervención</label><input type="text" id="pProc" class="tx"></div>
+      <div><label class="lbl">Fecha de la intervención</label><input type="date" id="pDate" class="tx"></div>
+      <div><label class="lbl">Hora (opcional)</label><input type="time" id="pTime" class="tx"></div>
+      <div><label class="lbl">Lugar / servicio</label><input type="text" id="pPlace" class="tx" placeholder="p. ej. Bloque quirúrgico, planta 2"></div>
+      <div id="pHepBox"><label class="lbl">Heparina: fármaco y dosis</label><input type="text" id="pHep" class="tx" placeholder="p. ej. enoxaparina 80 mg"></div>
+      <div><label class="lbl">Médico responsable</label><input type="text" id="pDoc" class="tx"></div>
+      <div><label class="lbl">Teléfono de contacto</label><input type="text" id="pTel" class="tx"></div>
+    </div>
+    <div id="dlBox" style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-p" id="dlPdf" style="flex:1;padding:12px;border-radius:10px;border:0;font-weight:700" onclick="downloadPDF()">Descargar PDF</button>
+      <button class="btn-s" id="dlHtml" style="flex:1;padding:12px;border-radius:10px;border:0;font-weight:700" onclick="downloadHTML()">Descargar para imprimir (HTML)</button>
+    </div>
+    <div class="note" id="dlMsg"></div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden"><div class="rep" id="rep"></div></div>
+</section>
+
+<div class="foot">
+  Fuentes: Vivas D, Ferrandis R, et al. Abordaje del tratamiento antitrombótico durante el perioperatorio y el periprocedimiento: documento de consenso 2025. <i>Rev Esp Cardiol</i>. 2026;79(1):68-79 (Tabla 2, Figuras 1-5, Tabla 3) y su material adicional (Tabla 1: riesgo hemorrágico por procedimiento; Figura 1: tratamiento puente antiagregante; Tabla 3: test de función plaquetar). La estratificación es un punto de partida y debe combinarse con el juicio clínico individual.
+</div>
+</main>
+
+<div class="nav">
+  <button class="btn-s hide" id="back" onclick="go(cur-1)">Atrás</button>
+  <button class="btn-p" id="next" onclick="go(cur+1)" disabled>Continuar</button>
+</div>
+
+<script>
+/* ======================= DATOS: PROCEDIMIENTOS ======================= */
+/* código|texto|notas  ·  m=mínimo, b=bajo, o=moderado, a=alto, i=intermedio (manejar como alto) */
+const PROC = {
+"Anestesiología":[
+"m|Infiltración local","b|Bloqueos fasciales: ilioinguinal, iliohipogástrico, transverso del abdomen, fascia lata|c","b|Bloqueos superficiales: antebrazo, digitales, safeno en rodilla, tobillo|c","b|Bloqueos superficiales perivasculares compresibles: poplíteo, femoral, axilar|c","m|Anestesia ocular tópica y peribulbar","b|Infiltraciones articulares o musculoesqueléticas","b|Infiltraciones en punto gatillo","b|Infiltraciones sacroiliacas",
+"o|Bloqueos profundos: plexo celiaco, ganglio estrellado, ciático proximal, obturador, infraclavicular, supraclavicular|c","o|Bloqueos superficiales perivasculares NO compresibles: intercostal, interescalénico|c","o|Infiltración epidural con corticoides (interlaminar, transforaminal)","o|Bloqueo nervioso o ablación facetaria por radiofrecuencia","o|Procedimientos intradisco","o|Bloqueos simpáticos","o|Implante de estimuladores de nervio periférico",
+"a|Anestesia neuroaxial: espinal, epidural, catéter epidural|e","a|Anestesia ocular retrobulbar","a|Bloqueos paravertebrales: paravertebral, plexo lumbar, plexo cervical profundo","a|Prueba y colocación de neuroestimuladores espinales","a|Colocación de catéteres y bombas intratecales","a|Vertebroplastia y cifoplastia|d","a|Epiduroscopia, descompresión epidural","a|Cualquier bloqueo (superficial o profundo) con catéter|c"],
+"Angiología y cirugía vascular":[
+"b|Endovascular MMII infrainguinal (femoropoplíteo) con introductor ≤ 6 F","b|Amputaciones menores","b|Safenectomía ± microflebectomías","b|Termoablación de vena safena","b|Acceso vascular para HD (FAV) nativo o protésico, no terciario",
+"o|Endovascular MMII infrainguinal con introductor > 6 F","o|Endovascular MMII sector aortoiliaco","o|Cirugía abierta MMII infrainguinal (vena o prótesis) y bypass extraanatómicos","o|Isquemia aguda de MMSS","o|Endovascular: isquemia mesentérica aguda o crónica","o|Endovascular: aneurismas viscerales","o|Endovascular: aneurismas o estenosis renal","o|Endovascular: enfermedad carotídea, vertebral o subclavia","o|Endovascular: aneurisma de aorta torácica, abdominal o toracoabdominal","o|Endovascular: síndrome aórtico agudo","o|Amputaciones mayores","o|Síndromes congestivos pélvicos","o|Acceso vascular para HD complejo o terciario",
+"a|Cirugía abierta MMII sector aortoiliaco","a|Cirugía abierta: isquemia mesentérica aguda o crónica","a|Cirugía abierta: aneurismas viscerales","a|Cirugía abierta: aneurismas o estenosis renal","a|Cirugía abierta: enfermedad carotídea, vertebral o subclavia","a|Cirugía abierta: aneurisma de aorta torácica, abdominal o toracoabdominal","a|Cirugía abierta: síndrome aórtico agudo","a|Síndrome del desfiladero torácico","a|Traumatismos vasculares"],
+"Cardiología intervencionista":[
+"m|Coronariografía diagnóstica (transradial o transfemoral)","m|ICP transradial","b|ICP transfemoral","b|Cierre de defectos septales interauriculares","m|Estudio electrofisiológico diagnóstico","m|Ablación de TSV","b|Ablación endocárdica de TV","m|Ablación de FA (aislamiento de venas pulmonares)","b|Ablación de flutter auricular","m|Implante transvenoso de MCP, DAI, TRC","m|Implante de Holter subcutáneo","m|Recambio de generador de MCP, DAI, TRC","b|Cateterismo cardiaco derecho","b|Marcapasos transitorio",
+"a|TAVI (implante de válvula aórtica transcatéter)|d","a|Implante de válvula mitral transcatéter","i|Valvuloplastia aórtica|b","i|Valvuloplastia mitral|b","i|Terapia borde a borde mitral|b","i|Intervencionismo percutáneo sobre la válvula tricúspide|b","i|Cierre percutáneo de orejuela|b","i|Cierre de leak paravalvular aórtico|b","a|Cierre de leak paravalvular mitral","a|Cierre de comunicación interventricular","a|Ablación epicárdica de TV","a|Extracción de electrodo (mecánica o láser)","a|Implante de MCP sin cables","a|Dispositivos de asistencia ventricular","i|Pericardiocentesis|b","a|Biopsia endomiocárdica"],
+"Cirugía cardiovascular":[
+"m|Implante de MCP, DAI, TRC","b|Explante simple de electrodos de MCP, DAI, TRC","m|Recambio de generador de MCP, DAI, TRC",
+"o|Cirugía de revascularización coronaria (con o sin CEC)","o|Cirugía valvular aislada mitral/aórtica/tricuspídea","o|Cirugía aislada de aorta ascendente","o|Cirugía de la miocardiopatía hipertrófica obstructiva","o|Tumores cardiacos benignos","o|Cierre de CIA","o|Balón de contrapulsación intraaórtico","o|Pericardiocentesis","o|Ventana pericárdica subxifoidea/toracotomía","o|Implante de ECMO VV o VA periférica",
+"a|Cirugía cardiaca mayor emergente (código 0)","a|Complicaciones mecánicas del IAM","a|Cirugía valvular múltiple","a|Cirugía del síndrome aórtico agudo","a|Cirugía de raíz de aorta/arco","a|Cardiopatías congénitas (excepto CIA aislada)","a|Cirugía de la endocarditis","a|Cirugía cardiaca mayor en reintervención","a|Pericardiectomía","a|Cirugía combinada valvular + coronaria","a|Tromboendarterectomía pulmonar","a|Trasplante cardiaco/cardiopulmonar","a|Asistencia ventricular o ECMO central","a|Prótesis transcatéter (transfemoral, transapical, transaxilar)","a|Ablación epicárdica aislada de la FA","a|Explante complejo de electrodos (vainas mecánicas/láser)"],
+"Cirugía general y del aparato digestivo":[
+"b|Cirugía menor de piel y subcutáneo (lipomas) con anestesia local","b|Drenaje de abscesos superficiales","b|PAAF de tumores o quistes mamarios","b|Punción aspirativa de ganglio linfático",
+"o|Colecistectomía laparoscópica","o|Biopsia ganglionar","o|Cirugía de pared abdominal (hernia inguinal, umbilical, epigástrica)","o|Cirugía proctológica (hemorroides, fístula, fisura)","o|Cirugía endocrina: hemitiroidectomía, paratiroidectomía, quiste tirogloso","o|Cirugía bariátrica laparoscópica (gastrectomía tubular)","o|Cirugía mamaria: tumorectomía, ganglio centinela, biopsia escisional","o|Drenaje percutáneo de abscesos intraabdominales o pélvicos",
+"a|Cirugía mayor oncológica: esofagectomía, gastrectomía, colorrectal, hepatectomía, pancreatectomía, linfadenectomías","a|Resección intestinal","a|Cirugía mayor abdominal o pélvica de más de 45 minutos","a|Cirugía gastrointestinal con anastomosis (incluye bariátrica)"],
+"Cirugía plástica y reconstructiva":[
+"m|Biopsias escisionales","b|Tumores cutáneos menores con injertos y colgajos locales",
+"o|Heridas crónicas: pie diabético, úlceras vasculares y por presión","o|Cirugía estética facial: blefaroplastia, rinoplastia, otoplastia y otros menores","o|Cirugía de la mano",
+"a|Amputaciones","a|Sarcomas musculoesqueléticos","a|Cáncer de cabeza y cuello","a|Cirugía del plexo braquial","a|Estética de contorno corporal","a|Estética de rejuvenecimiento facial","a|Cirugía genital y de reasignación de sexo","a|Cirugía mayor de tumores cutáneos","a|Traumatología facial","a|Linfadenectomías cervical, axilar e inguinal","a|Malformaciones vasculares y linfáticas","a|Quemados","a|Reimplantes y revascularizaciones","a|Cirugía estética de la mama","a|Reconstructiva mayor de tronco y extremidades","a|Microcirugía en general"],
+"Cirugía torácica":[
+"o|Simpatectomía (hiperhidrosis)",
+"a|Cirugía pulmonar (lobectomía, neumonectomía, traumatismos, malformaciones, decorticación)","a|Pared torácica, tráquea y bronquios","a|Cirugía de la pleura: biopsia pleural, tumores","a|Mediastino, estrecho torácico superior y diafragma (incl. esofaguectomía)"],
+"Endoscopia digestiva":[
+"m|Endoscopia diagnóstica (EGD, colonoscopia, sigmoidoscopia), incluida biopsia de mucosa","b|CPRE con stent (biliar o pancreático) o dilatación papilar con balón sin esfinterotomía","b|Enteroscopia de pulsión","b|Enteroscopia asistida por balón diagnóstica","b|Cápsula endoscópica","b|Colocación de prótesis enterales","b|Ecoendoscopia sin PAAF","b|Electrocoagulación con argón plasma","b|Polipectomía < 1 cm",
+"a|Polipectomía > 1 cm","a|Resección endoscópica mucosa","a|Disección submucosa endoscópica","a|CPRE con esfinterotomía biliar o pancreática","a|Ampulectomía","a|Gastrostomía/yeyunostomía endoscópica percutánea","a|Colostomía endoscópica percutánea","a|Enteroscopia terapéutica asistida por balón","a|Ecoendoscopia con PAAF o biopsia","a|Ecoendoscopia intervencionista","a|Ablación tumoral","a|Tratamiento de varices","a|Dilatación neumática o con bujías","a|Drenajes por ecografía","a|Tratamiento de tumores hepáticos por ecografía (RF, alcoholización)","a|Biopsia hepática percutánea o transyugular","a|Miotomía peroral endoscópica (POEM)","a|Ablación por radiofrecuencia de lesiones esofágicas o gástricas","a|Cistogastrostomía","a|Ablación con láser"],
+"Ginecología y obstetricia":[
+"b|Histeroscopia diagnóstica y quirúrgica","b|Biopsia cervical / conización","b|Drenaje-marsupialización de glándula de Bartolino","b|Tumorectomía mamaria","b|Biopsia corial / amniocentesis","b|Legrado obstétrico",
+"o|Patología anexial benigna (quistectomía, salpinguectomía, anexectomía)","o|Histerectomía simple (laparotómica, laparoscópica o vaginal)","o|Cirugía del prolapso genital","o|Técnicas antiincontinencia","o|Cuadrantectomía mamaria","o|Cesárea programada sin factores de riesgo de hemorragia puerperal",
+"a|Miomectomía laparotómica o laparoscópica","a|Endometriosis profunda","a|Histerectomía radical","a|Vulvectomía radical","a|Cirugía de estadificación oncológica","a|Linfadenectomía pélvica, paraaórtica e inguinal","a|Mastectomía total (con/sin linfadenectomía)","a|Cesárea urgente","a|Cesárea programada con factores de riesgo de hemorragia puerperal","a|Legrado puerperal"],
+"Medicina intensiva":[
+"b|Cateterismo cardiaco derecho","b|Marcapasos transitorio","b|Broncoscopia diagnóstica","b|Lavado broncoalveolar","b|Toracocentesis con control ecográfico","b|Tubo de drenaje pleural con control ecográfico","b|Paracentesis guiada por ecografía","b|Colocación y retirada de catéter venoso central","m|PICC",
+"o|Balón de contrapulsación intraaórtico","o|Implante de ECMO VV o VA periférica","o|Toracocentesis sin control ecográfico","o|Tubo de drenaje pleural sin control ecográfico","o|Paracentesis sin control ecográfico","o|Traqueotomía percutánea programada","o|Colocación y retirada de catéter arterial central","o|Catéter venoso de alto flujo",
+"i|Cricotomía urgente|b","i|Pericardiocentesis|b","a|Punción lumbar|d"],
+"Medicina de urgencias y emergencias":[
+"b|Artrocentesis","b|Drenaje de absceso subcutáneo","b|Drenaje pleural con control ecográfico","b|Inserción de catéter arterial","b|Inserción de catéter venoso central","b|Paracentesis guiada por ecografía","b|Toracocentesis con control ecográfico",
+"o|Drenaje pleural sin control ecográfico","o|Paracentesis no guiada por ecografía","o|Toracocentesis sin control ecográfico",
+"a|Punción lumbar"],
+"Neumología":[
+"b|Broncoscopia diagnóstica","b|Lavado broncoalveolar","b|Cepillado bronquial","b|Toracocentesis con control ecográfico","b|Catéter pleural tunelizado con control ecográfico","b|Tubo de drenaje pleural con control ecográfico",
+"o|Toracocentesis sin control ecográfico","o|Catéter pleural tunelizado sin control ecográfico","o|Tubo de drenaje pleural sin control ecográfico","o|PAAF transtorácica","o|Ecobroncoscopia con punción transbronquial (EBUS-TBNA)",
+"a|Biopsia endobronquial / transbronquial / criobiopsia","a|Biopsia con aguja gruesa transtorácica","a|Resección tumoral (láser, electrocoagulación, criorrecanalización)","a|Implantación de prótesis","a|Dilatación bronquial/traqueal","a|Broncoscopia rígida","a|Extracción de cuerpo extraño","a|Biopsia pleural cerrada/transtorácica","a|Toracoscopia"],
+"Neurocirugía":[
+"b|Biopsia muscular (anestesia local)","b|Biopsia de nervio periférico","b|Revisión de herida quirúrgica","b|Angiografía cerebral","b|Procedimientos percutáneos espinales: facetarias y rizólisis",
+"o|Stent carotídeo","o|Descompresión de nervios periféricos","o|Acceso percutáneo a trigémino","o|Cifoplastia / vertebroplastia|d","o|Punción lumbar|d","o|Procedimientos espinales epidurales, transforaminales y caudales","o|Instrumentación espinal percutánea sin acceso al canal",
+"a|Craneotomía / craniectomía","a|Biopsias cerebrales o medulares","a|Cirugía de raquis compleja o con acceso al canal (laminectomía, discectomía…)","a|Endarterectomía carotídea","a|Embolizaciones (intracraneal/medular)","a|Embolectomía mecánica","a|Estimulación cerebral profunda","a|Derivaciones de LCR (DVP, DVA, lumboperitoneal, drenajes)","a|Cirugía transesfenoidal y endoscópica de base de cráneo"],
+"Odontología y cirugía maxilofacial":[
+"m|Exploración dental","b|Exploración periodontal (sondaje)","m|Radiografía convencional (panorámica, periapicales)","b|Sialografía","b|Artrograma de ATM","m|Odontología restauradora (obturaciones, reconstrucciones)","m|Prostodoncia (prótesis fija o removible)","m|Prótesis maxilofacial","m|Ortodoncia","m|Endodoncia: tratamiento de conductos","b|Cirugía apical / apicectomías|f","b|Resecciones radiculares quirúrgicas|f","b|Extracciones dentarias convencionales","b|Alveoloplastia / vestibuloplastia / escisión de tejidos blandos|f","b|Frenectomía|f","b|Cirugía preprotésica|f","b|Instrumentación supra/subgingival","b|Cirugía periodontal poco extensa|f","b|Tratamiento no quirúrgico de enfermedad periimplantaria","b|Cirugía periimplantaria poco extensa|f","b|Mantenimiento periodontal/periimplantario","b|Colocación convencional de implantes poco extensa|f","b|Regeneración ósea poco extensa|f","b|Segunda fase de cirugía implantológica|f","b|Cirugía de glándulas salivales (parotidectomía, submaxilectomía)","b|Cirugía cutánea con reconstrucción local",
+"o|Extracciones quirúrgicas extensas/complicadas","o|Escisión de tumor maligno intraóseo ≥ 1,25 cm","o|Suturas complicadas > 5 cm","o|Resección radical de maxilar o mandíbula","o|Tumores de cavidad oral sin disección cervical","o|Drenaje de abscesos con afectación de múltiples espacios fasciales","o|Reducción de fracturas complicadas con fijación","o|Artroplastia/reconstrucción de ATM","o|Traqueotomía de emergencia","o|Cirugía periodontal extensa/complicada|f","o|Cirugía periimplantaria extensa/complicada|f","o|Implantes múltiples con cirugía extensa|f","o|Regeneración ósea guiada extensa|f",
+"a|Osteoplastia/ostectomía por deformidades ortognáticas","a|Procedimientos LeFort I/II/III","a|Tumores de cavidad oral con disección cervical y reconstrucción mayor","a|Reconstrucción con colgajos microvascularizados","a|Cirugía oncológica maxilofacial compleja"],
+"Oftalmología":[
+"m|Procedimientos con anestesia tópica","m|Catarata mediante facoemulsificación|t","b|Queratoplastia lamelar","b|Trasplante de membrana amniótica","b|Anillos intraestromales","b|Cross-linking corneal","b|Cirugía refractiva (láser corneal)","b|Inyección de toxina botulínica","b|Inyección troclear de corticoides","b|Inyección intramuscular de anestésicos","b|Inyección intravítrea de fármacos","b|Fotocoagulación con láser","b|Cerclaje o indentación escleral","b|Cauterización de pestañas","b|Sondaje de vía lagrimal","b|Conjuntivoplastia","b|Extirpación/biopsia de lesiones palpebrales menores","b|Procesos ciclodestructivos",
+"o|Catarata extracapsular","o|Lesiones conjuntivales","o|Pterigion","o|Reconstrucción de iris y pupiloplastia","o|Implante secundario de LIO suturada o anclada a iris","o|Queratoplastia penetrante","o|Estrabismo: cirugía de uno o varios músculos","o|Facovitrectomía","o|Membrana epirretiniana","o|Reconstructiva con injertos, colgajos o implantes","o|Malposiciones palpebrales","o|Blefaroplastia, cejaplastia","o|Cirugía de vía lagrimal","o|Cirugía orbitaria (tumores, fracturas)","o|Goniotomía","o|Trabeculectomía","o|Facotrabeculectomía","o|Implante de sistemas de drenaje valvular","o|Cirugía de glaucoma mínimamente invasiva (CGMI)",
+"a|Endorresección de tumores intraoculares","a|Vitrectomía (retinopatía diabética proliferativa, tendencia a resangrado)","a|Descompresión orbitaria"],
+"Otorrinolaringología":[
+"m|Tubos ventilatorios transtimpánicos","b|Timpanoplastia","b|Estapedectomía","b|Glomus timpánico","b|Mastoidectomía","b|Implante coclear","b|Laberintectomía","b|Radiofrecuencia de cornetes","b|Cirugía endoscópica nasosinusal simple","b|Septoplastia funcional","b|Rinoplastia estética y funcional","b|Otoplastia","m|Microcirugía endolaríngea por lesiones benignas",
+"o|Amigdalectomía y adenoidectomía","o|Faringoplastias","o|Cirugía de tiroides y paratiroides","o|Cirugía de glándulas salivales","o|Cervicotomía (biopsia ganglionar)","o|Drenaje de abscesos cervicales/orales","o|Malformaciones cervicales (fístulas, quistes branquiales)","o|Traqueotomía",
+"a|Oncológica de cavidad oral","a|Cirugía de base de cráneo","a|Oncológica de orofaringe","a|Oncológica de laringe e hipofaringe","a|Oncológica de senos paranasales","a|Vaciamientos ganglionares cervicales","a|Tumores cutáneos avanzados de cabeza y cuello","a|Reconstrucción de defectos oncológicos complejos"],
+"Radiología vascular e intervencionista":[
+"m|PAAF de órgano superficial (tiroides, mama, ganglio, parótida)","b|BAG de órgano superficial","b|Punciones terapéuticas osteoarticulares, bloqueos facetarios lumbares","m|Recambio de catéter de drenaje con tracto maduro","b|Toracocentesis guiada por ecografía","b|Paracentesis guiada por ecografía","b|Drenaje de absceso superficial","b|Punciones venosas: filtro de cava estándar, varicocele, CVC tunelizado o reservorio, muestras, esclerosis de malformaciones","m|Catéter central de inserción periférica y vías periféricas","b|Radiofrecuencia o láser de varices de MMII","b|Arteriografía e intervencionismo arterial con acceso < 6 F","b|Linfografía intranodular","b|Fistulografía, angioplastia y trombectomía de accesos de hemodiálisis|d","b|Dacriocistografía, sialografía","b|Stent en tubo digestivo (colon, esófago, duodeno)|d",
+"o|Termoablación de osteoma osteoide y metástasis óseas periféricas","o|Drenaje pleural|d","o|Drenaje peritoneal|d","o|Biopsia hepática transyugular",
+"a|BAG hepática / renal","a|BAG intraabdominal, retroperitoneal, pared torácica o pulmonar; PAAF de órgano profundo","a|Drenaje de absceso (profundo)","a|Termoablación percutánea hepática, renal o pulmonar","a|Intervención biliar transhepática y colecistostomía percutánea","a|Intervencionismo arterial con acceso ≥ 7 F (embolización, stent, endoprótesis, ictus)","a|Trombólisis farmacomecánica de TEV (TVP, TEP, portal, mesentérica)","a|Retirada compleja de filtro de cava","a|Intervenciones venosas intratorácicas o en SNC","a|TIPS (DPIT)","a|Nefrostomía/gastrostomía/doble J percutáneos: colocación inicial|d","a|Cateterización de cisterna del quilo","a|Vertebroplastia, cifoplastia, punción lumbar, inyección epidural|d","a|Infiltraciones y bloqueos en columna cervical"],
+"Traumatología y cirugía ortopédica":[
+"m|Punción articular o artrocentesis","b|Artroscopia de rodilla (incl. plastias de cruzados)","b|Artroscopia de cadera","b|Artroscopia de hombro","b|Inestabilidad de hombro (artroscopia y abierta)","b|Cirugía del tobillo (incl. osteosíntesis)","b|Cirugía del antepié","b|Cirugía ortopédica del retropié","b|Fracturas de huesos del tarso","b|Mano/pie: partes blandas, tumores benignos, tendones","b|Lesiones tendinosas traumáticas de muñeca y mano","b|Síndromes compresivos de nervios del miembro superior","b|Fractura de radio distal y diáfisis del antebrazo","b|Fracturas articulares del codo","b|Partes blandas del codo",
+"o|Fractura de cadera (prótesis u osteosíntesis)|g","o|Artroplastia primaria de cadera","o|Artroplastia primaria de rodilla","o|Fractura de fémur (diafisaria y distal)","o|Fractura de tibia (proximal y diafisaria)","o|Fractura de húmero (proximal y diafisaria)","o|Artroplastia de hombro","o|Cirugía de columna cervical","o|Artrodesis lumbar hasta 2 niveles / mínimamente invasiva","o|Oncológica de partes blandas",
+"a|Artroplastia bilateral de cadera","a|Artroplastia bilateral de rodilla","a|Revisión de artroplastia de cadera","a|Revisión de artroplastia de rodilla","a|Artrodesis lumbar circunferencial > 2 niveles","a|Deformidades raquídeas (escoliosis)","a|Fractura de pelvis y sacro","a|Politraumatizados","a|Oncológica ósea con reconstrucción"],
+"Urología":[
+"b|Cirugía de genitales externos masculinos","b|Cirugía de incontinencia urinaria femenina","b|Ureteroscopia por litiasis","b|Cistoscopia y derivaciones retrógradas",
+"o|Cirugía percutánea renal","o|Cirugía endoscópica de vejiga/próstata (RTU)","o|Biopsia de próstata","o|Cirugía reconstructiva uretral y retroperitoneal",
+"a|Cirugía exerética urológica (oncológica y no oncológica)","a|Trasplante renal","a|Donante vivo"],
+"Otros":["b|Aspirado de médula ósea","b|Inyección intramuscular","o|Biopsia de médula ósea"]
+};
+const NOTES={
+b:"Riesgo intermedio, pero por la potencial gravedad de la hemorragia se maneja como ALTO riesgo hemorrágico.",
+c:"Cualquier bloqueo superficial o profundo con catéter pasa a ser de ALTO riesgo.",
+d:"Riesgo muy dependiente de la experiencia del operador: podría reducirse la categoría según los resultados locales (individualizar).",
+e:"La aspirina no contraindica las técnicas neuroaxiales.",
+f:"Procedimiento dental ambulatorio: son fundamentales las medidas hemostáticas locales; el abordaje de un sangrado fuera del hospital es más difícil.",
+g:"A pesar del riesgo hemorrágico, operar en las primeras 24-48 h del ingreso, adaptando bloqueos nerviosos y tipo de anestesia (neuroaxial o general) a la situación hemostática.",
+t:"La Tabla 1 del material adicional lo sitúa en riesgo bajo; el texto del documento lo cita como ejemplo de riesgo mínimo."
+};
+const RLAB={m:"Mínimo",b:"Bajo",o:"Moderado",a:"Alto",i:"Intermedio → manejar como alto"};
+const RCLS={m:"r-min",b:"r-bajo",o:"r-mod",a:"r-alto",i:"r-alto"};
+const ALL=[];for(const s in PROC)PROC[s].forEach(x=>{const[c,t,n]=x.split("|");ALL.push({s,c,t,n:n||""})});
+
+const PBF=["Edad > 65 años","Insuficiencia renal","Alteración de la función hepática","Hipertensión arterial","Enolismo","Antecedente de hemorragia","Ictus previo","Proceso oncológico","Trombocitopenia o alteración de la función plaquetaria","Anemia","INR lábil","AINE / otros antitrombóticos concomitantes"];
+
+/* ======================= ESTADO ======================= */
+const S={tipo:null,ind:new Set(),urg:"prog",proc:null};
+let cur=1;
+const $=id=>document.getElementById(id);
+const DN={aceno:"Acenocumarol",warf:"Warfarina",dabi:"Dabigatrán",api:"Apixabán",riva:"Rivaroxabán",edo:"Edoxabán",aas:"AAS",clopi:"Clopidogrel",tica:"Ticagrelor",prasu:"Prasugrel",trifl:"Triflusal",cilo:"Cilostazol",dipi:"Dipiridamol"};
+
+/* ======================= PASO 1 ======================= */
+function chipGroup(id,cb,multi){
+  $(id).querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
+    if(multi){b.classList.toggle("on")}else{$(id).querySelectorAll(".chip").forEach(x=>x.classList.remove("on"));b.classList.add("on")}
+    cb(b.dataset.v,b.classList.contains("on"));
+  });
+}
+chipGroup("tipoChips",v=>{S.tipo=v;$("acCard").classList.toggle("hide",v==="ap");$("apCard").classList.toggle("hide",v==="ac");upd()});
+chipGroup("indChips",(v,on)=>{on?S.ind.add(v):S.ind.delete(v);$("ind-"+v).classList.toggle("hide",!on);upd()},true);
+chipGroup("urgChips",v=>{S.urg=v;upd()});
+document.querySelectorAll("#p1 input,#p1 select,#p2 input[type=checkbox]").forEach(e=>e.addEventListener("change",upd));
+$("crcl").addEventListener("input",upd);
+
+function isAVK(d){return d==="aceno"||d==="warf"}
+function chaScore(){let s=0;document.querySelectorAll(".cha").forEach(e=>{if(e.checked)s+=+e.dataset.p});return s}
+
+function acRisk(){
+  const r={alto:[],bm:[]};
+  if(S.ind.has("valv")){
+    const p=$("valvPos").value;
+    if(p==="mitral")r.alto.push("Válvula mecánica en posición mitral");
+    if(p==="aoant")r.alto.push("Prótesis aórtica de generación antigua");
+    if($("valvIctus").checked)r.alto.push("Válvula mecánica + ictus/AIT reciente o perioperatorio previo");
+    if($("valvTromb").checked)r.alto.push("Trombosis valvular previa");
+    if(p==="aobi"&&!$("valvIctus").checked&&!$("valvTromb").checked)r.bm.push("Prótesis aórtica bidisco sin ictus/AIT reciente");
+  }
+  if(S.ind.has("fa")){
+    const c=chaScore();
+    if(c>=7)r.alto.push("FA con CHA₂DS₂-VA "+c+" (≥ 7)");
+    if($("faReum").checked)r.alto.push("FA con valvulopatía reumática mitral");
+    if($("faIctus").checked)r.alto.push("FA con ictus/AIT < 3 meses");
+    if(c<7&&!$("faReum").checked&&!$("faIctus").checked)r.bm.push("FA con CHA₂DS₂-VA "+c);
+  }
+  if(S.ind.has("tev")){
+    if($("tevTime").value==="lt3")r.alto.push("TEV reciente (< 3 meses)");
+    if($("tevCancer").checked)r.alto.push("TEV con cáncer activo de alto riesgo");
+    if($("tevTime").value==="ge3"&&!$("tevCancer").checked)r.bm.push($("tevRec").checked?"TEV recurrente, último episodio ≥ 3 meses":"TEV ≥ 3 meses");
+  }
+  if(S.ind.has("otras")){
+    document.querySelectorAll(".otA").forEach(e=>{if(e.checked)r.alto.push(e.parentElement.querySelector("span").firstChild.textContent.trim())});
+    if($("otB").checked)r.bm.push("Trombofilia no grave");
+  }
+  const level=r.alto.length?"alto":(r.bm.length?"bm":null);
+  return{level,why:r.alto.length?r.alto:r.bm};
+}
+
+function apParse(){
+  const v=$("apDrug").value;if(!v)return null;
+  const parts=v.split("+");
+  return{v,aas:parts.includes("aas"),p2y12:parts.find(x=>["clopi","tica","prasu"].includes(x))||null,other:parts.find(x=>["trifl","cilo","dipi"].includes(x))||null,dapt:parts.length>1};
+}
+function apRisk(){
+  const ind=$("apInd").value,t=+$("apTime").value;
+  if(ind==="prim")return{level:"bajo",why:["Prevención primaria"],track:"prim"};
+  const scaHR=ind==="sca"&&[...document.querySelectorAll(".scaF")].some(e=>e.checked);
+  const tl=["< 2 semanas","2 semanas-1 mes","1-3 meses","3-6 meses","6-12 meses","> 12 meses"][t];
+  let level,track;
+  if(scaHR){track="sca";level=t<=2?"alto":(t<=4?"mod":"bajo")}
+  else{track="std";level=t<=1?"alto":(t<=3?"mod":"bajo");
+    if($("apDCB").checked&&t===1&&["scc","sca"].includes(ind))level="mod";}
+  const why=[(scaHR?"SCA con factores de alto riesgo trombótico":"Episodio vascular agudo / crónico revascularizado")+", "+tl];
+  if($("apDCB").checked&&["scc","sca"].includes(ind))why.push("ICP solo con balón farmacoactivo: alto riesgo limitado a las 2 primeras semanas");
+  if($("apNoStent").checked)why.push("Revascularización quirúrgica o tratamiento médico: el riesgo real es menor que tras ICP con stent");
+  return{level,why,track,t};
+}
+const LV={alto:["Alto","r-alto"],bm:["Bajo-moderado","r-bajo"],mod:["Moderado","r-mod"],bajo:["Bajo","r-bajo"]};
+function badge(l){return `<span class="risk ${LV[l][1]}">${LV[l][0]}</span>`}
+
+function step1ok(){
+  if(!S.tipo)return false;
+  let ok=true;
+  if(S.tipo!=="ap"){const d=$("acDrug").value;ok=ok&&!!d&&S.ind.size>0&&(isAVK(d)||$("crcl").value!=="")}
+  if(S.tipo!=="ac"){ok=ok&&!!$("apDrug").value}
+  return ok;
+}
+function upd(){
+  const d=$("acDrug").value;
+  $("inrBox").classList.toggle("hide",!isAVK(d));
+  $("crclBox").classList.toggle("hide",isAVK(d));
+  $("chaScore").textContent=chaScore();
+  const ind=$("apInd").value;
+  $("apTimeBox").classList.toggle("hide",ind==="prim");
+  $("scaFactors").classList.toggle("hide",ind!=="sca");
+  $("dcbBox").classList.toggle("hide",!["scc","sca","eap","ictus"].includes(ind));
+  // live AC
+  if(S.tipo&&S.tipo!=="ap"){
+    const r=acRisk();
+    $("acLive").innerHTML=r.level?`Riesgo tromboembólico: ${badge(r.level)}<div class="note">${r.why.join(" · ")}</div>`:"Seleccione la causa de la anticoagulación.";
+  }
+  if(S.tipo&&S.tipo!=="ac"){
+    const r=apRisk();
+    $("apLive").innerHTML=`Riesgo trombótico: ${badge(r.level)}<div class="note">${r.why.join(" · ")}</div>`;
+  }
+  // live proc
+  renderProcLive();
+  $("s2").disabled=!step1ok();$("s3").disabled=!(step1ok()&&S.proc);
+  navState();
+}
+
+/* ======================= PASO 2 ======================= */
+$("spec").innerHTML=Object.keys(PROC).map(s=>`<option>${s}</option>`).join("");
+$("pbf").innerHTML=PBF.map((t,i)=>`<label class="chk"><input type="checkbox" class="pbf" data-i="${i}"><span>${t}</span></label>`).join("");
+document.querySelectorAll(".pbf").forEach(e=>e.addEventListener("change",upd));
+function renderList(){
+  const q=$("q").value.trim().toLowerCase();
+  const norm=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+  let items=q?ALL.filter(p=>norm(p.t+" "+p.s).includes(norm(q))):ALL.filter(p=>p.s===$("spec").value);
+  $("plist").innerHTML=items.length?items.map(p=>{const k=ALL.indexOf(p);return `<div class="proc ${S.proc===k?"on":""}" data-k="${k}"><span>${p.t}${q?`<span class="sp">${p.s}</span>`:""}</span><span class="risk ${RCLS[p.c]}">${RLAB[p.c].split(" ")[0]}</span></div>`}).join(""):`<div class="proc">Sin resultados</div>`;
+  $("plist").querySelectorAll(".proc[data-k]").forEach(el=>el.onclick=()=>{S.proc=+el.dataset.k;
+    const p=ALL[S.proc];$("cabg").checked=/revascularización coronaria/i.test(p.t);renderList();upd()});
+}
+$("spec").onchange=()=>{$("q").value="";renderList()};
+$("q").oninput=renderList;
+function bleed(){ // devuelve {code, alg: min|bajo|ma, label, notes[]}
+  if(S.proc===null)return null;
+  const p=ALL[S.proc];let c=p.c;const notes=p.n.split("").map(k=>NOTES[k]).filter(Boolean);
+  if($("neurax").checked&&c!=="a"&&c!=="i"){c="a";notes.push("Elevado a ALTO por anestesia neuroaxial o bloqueo con catéter.")}
+  if($("neurax").checked&&!p.n.includes("e"))notes.push(NOTES.e);
+  const alg=c==="m"?"min":c==="b"?"bajo":"ma";
+  return{c,alg,high:c==="a"||c==="i",label:RLAB[c],cls:RCLS[c],notes,p};
+}
+function renderProcLive(){
+  const b=bleed();
+  $("procLive").innerHTML=b?`<b>${b.p.t}</b> <span class="note">(${b.p.s})</span><br>Riesgo hemorrágico: <span class="risk ${b.cls}">${b.label}</span>${b.notes.map(n=>`<div class="note">• ${n}</div>`).join("")}`:"Seleccione un procedimiento.";
+}
+
+/* ======================= NAVEGACIÓN ======================= */
+function navState(){
+  $("back").classList.toggle("hide",cur===1);
+  $("next").classList.toggle("hide",cur===4);
+  $("next").disabled=cur===1?!step1ok():!(S.proc!==null);
+  $("next").textContent=cur===2?"Ver valoración":cur===3?"Descargar para el paciente":"Continuar";
+  $("s4").disabled=$("s3").disabled;
+}
+function go(n){
+  if(n<1||n>4)return;
+  if(n>=2&&!step1ok())return;if(n>=3&&S.proc===null)return;
+  cur=n;[1,2,3,4].forEach(i=>{$("p"+i).classList.toggle("hide",i!==n);$("s"+i).classList.toggle("on",i===n)});
+  if(n>=3)render();if(n===4)renderP4();
+  navState();window.scrollTo(0,0);
+}
+
+/* ======================= TIMELINE ======================= */
+const DAYS=[-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3];
+const CL={take:["c-take","Toma"],half:["c-half","Solo mañana"],off:["c-off","—"],lmwh:["c-lmwh","HBPM"],lmwhH:["c-lmwh","HBPM ½ (mañana)"],iv:["c-iv","i.v."],surg:["c-surg","CIRUGÍA"],rest:["c-rest","Reinicio"],wait:["c-wait","Esperar"],nodose:["c-off","No tomar"],night:["c-half","Valorar noche"],hemo:["c-wait","Hemostasia"],ivstop:["c-iv","Stop 1-6 h"],ivload:["c-iv","+4-6 h carga"],takesurg:["c-take","Toma"]};
+let SCHED=[];function R(label,key,fn){SCHED.push({label,key,fn});return [label,fn]}
+function buildTL(rowDefs,minDay){
+  const ds=DAYS.filter(d=>d>=minDay);
+  let h=`<div class="tl"><table><tr><th></th>${ds.map(d=>`<th>${d===0?"Día 0":(d>0?"+":"")+d}</th>`).join("")}</tr>`;
+  rowDefs.forEach(([label,fn])=>{h+=`<tr><td class="lab">${label}</td>${ds.map(d=>{const k=fn(d);if(!k)return"<td></td>";const[c,t]=Array.isArray(k)?k:CL[k];return `<td class="${c}">${t}</td>`}).join("")}</tr>`});
+  return h+`</table></div><div class="legend"><span><i class="c-take"></i>Toma</span><span><i class="c-off"></i>Sin fármaco</span><span><i class="c-lmwh"></i>HBPM dosis anticoagulante</span><span><i class="c-iv"></i>Puente i.v.</span><span><i class="c-rest"></i>Reinicio</span></div>`;
+}
+
+/* ======================= ANTICOAGULACIÓN: LÓGICA ======================= */
+function acPlan(thr,b){
+  const d=$("acDrug").value,cr=+$("crcl").value,avk=isAVK(d),name=DN[d];
+  const bid=d==="dabi"||d==="api";
+  let h="",txt=[];
+  const restartDay=b.high?2:1;
+  // ----- URGENCIA -----
+  if(S.urg!=="prog"){
+    h+=acUrgent(d,cr);txt.push("Cirugía no programada: ver algoritmo de urgencia para "+name+".");
+    return{h,txt};
+  }
+  // ----- MÍNIMO -----
+  if(b.alg==="min"){
+    h+=`<div class="alert a-blu"><b>Riesgo hemorrágico mínimo → valorar NO suspender la anticoagulación</b><ul>
+      <li>No tomar el anticoagulante oral el día del procedimiento.</li>
+      ${avk?`<li>INR previo al procedimiento (objetivo 2-2,5, según procedimiento).</li>`:""}
+      ${bid?`<li>${name} cada 12 h: omitir la toma de la noche anterior → última toma 24 h antes.</li>`:""}
+      ${!avk&&pbfHas([1])||(!avk&&cr&&cr<50)?`<li><b>Paciente con riesgo hemorrágico aumentado (p. ej., insuficiencia renal): considerar suspensión corta del ACOD de 24-48 h.</b></li>`:`<li>Si el paciente tiene riesgo hemorrágico aumentado (p. ej., insuficiencia renal), considerar suspensión corta del ACOD de 24-48 h.</li>`}
+      <li>Reintroducir lo antes posible, preferentemente la mañana del día siguiente.${bid?" En ACOD cada 12 h, según riesgo tromboembólico, valorar reiniciar la primera noche del día del procedimiento.":""}</li>
+      <li>Requiere consenso multidisciplinar.</li></ul></div>`;
+    h+=buildTL([R(name,d,x=>x<-1?"take":x===-1?(bid?"half":"take"):x===0?(bid&&thr==="alto"?"night":"nodose"):x===1?"rest":"take")],-3);
+    txt.push(`Riesgo hemorrágico mínimo: valorar no suspender ${name}; no tomar el día del procedimiento${bid?", omitir dosis de la noche previa":""}; reiniciar la mañana siguiente.`);
+    return{h,txt};
+  }
+  const cat=b.alg==="bajo"?"bajo":"moderado-alto";
+  // ----- AVK -----
+  if(avk){
+    const inr=$("inr").value;
+    const base=d==="aceno"?{rango:3,infra:2,supra:4}:{rango:5,infra:4,supra:6};
+    const n=base[inr],last=-(n+1);
+    const bridge=thr==="alto";
+    h+=`<div class="alert a-amb"><b>Suspender ${name} ${n} días antes${inr==="supra"?" (o más, según INR)":""} → última toma el día ${last}</b><ul>
+      <li>${d==="aceno"?"Acenocumarol: 3 días si INR en rango; 2 días si infraterapéutico":"Warfarina: 5 días si INR en rango; 4 días si infraterapéutico"}; si INR supraterapéutico, prolongar según el INR.</li>
+      <li>INR inmediatamente antes de la intervención: objetivo general <b>&lt; 1,2</b> (en algunos procedimientos &lt; 1,5).</li>
+      <li>Si INR &gt; 1,5 en cirugía electiva: <b>no</b> se recomienda vitamina K preoperatoria (riesgo de resistencia a AVK en el posoperatorio).</li></ul></div>`;
+    if(bridge){
+      h+=`<div class="alert a-pur"><b>Riesgo tromboembólico ALTO → tratamiento puente indicado</b><ul>
+      <li>Iniciar 24 h después de la última dosis de AVK.</li>
+      <li>HBPM a <b>dosis anticoagulante</b> (no profiláctica), idealmente en 2 dosis diarias.</li>
+      <li>Última dosis de HBPM 24 h antes de la intervención, con la <b>mitad de la dosis diaria</b>.</li>
+      <li>Si HNF: suspender 4-6 h antes (dosis profiláctica: 12 h antes).</li>
+      <li>Valorar diferir la intervención, si es posible, para reducir el riesgo tromboembólico.</li></ul></div>`;
+    }else h+=`<div class="alert a-grn"><b>Riesgo tromboembólico bajo-moderado → NO tratamiento puente</b>El puente no reduce eventos tromboembólicos y aumenta la hemorragia.</div>`;
+    h+=`<div class="alert a-grn"><b>Reinicio</b><ul><li>AVK lo antes posible (tarda 36-48 h en hacer efecto): habitualmente la noche de la intervención o el día siguiente si hay hemostasia.</li>
+      ${bridge?`<li>HBPM a dosis anticoagulante según competencia hemostática, idealmente en las primeras 24 h${b.high?"; en procedimientos de alto riesgo hemorrágico, a las 48-72 h":""}, hasta INR en rango.</li>`:""}
+      <li>Reiniciar en las primeras 24 h; 48-72 h si alto riesgo hemorrágico o si no se alcanza competencia hemostática.</li></ul></div>`;
+    h+=buildTL([R(name,d,x=>x<=last?"take":x<0?"off":x===0?"surg":x===1?"rest":"take"),
+      ...(bridge?[R("HBPM puente","hbpm",x=>x>last&&x<-1?"lmwh":x===-1?"lmwhH":x===0?"off":x>=restartDay?"lmwh":x>0?"hemo":null)]:[])],-8);
+    txt.push(`${name}: suspender ${n} días antes (última toma día ${last}); INR preoperatorio objetivo < 1,2.`+(bridge?" Puente con HBPM a dosis anticoagulante desde 24 h tras la última toma de AVK; última dosis 24 h antes (mitad de la dosis diaria).":" Sin tratamiento puente.")+` Reinicio de AVK lo antes posible${bridge?" con HBPM hasta INR en rango":""}.`);
+    return{h,txt};
+  }
+  // ----- ACOD -----
+  let last=null,warn="";
+  if(d==="dabi"){
+    if(cr<=30){warn=`<div class="alert a-red"><b>ClCr ≤ 30 ml/min: dabigatrán no recomendado</b>No hay pauta en el documento; individualizar (valorar niveles plasmáticos / consulta con hematología).</div>`}
+    else if(cr>=80)last=cat==="bajo"?-2:-3;
+    else if(cr>=50)last=cat==="bajo"?-3:-4;
+    else last=cat==="bajo"?-4:-5;
+  }else{
+    if(cr<15)warn=`<div class="alert a-red"><b>ClCr &lt; 15 ml/min</b>Fuera de ficha técnica para ${name}; el documento no establece pauta. Individualizar.</div>`;
+    if(cr>30)last=cat==="bajo"?-2:-3;else last=cat==="bajo"?-3:-4;
+    if(cr<15)last=-4;
+  }
+  h+=warn;
+  if(last!==null){
+    const off=-last-1;
+    h+=`<div class="alert a-amb"><b>Suspender ${name} ${off} día${off>1?"s":""} completos antes → última toma el día ${last}</b><ul>
+      <li>Riesgo hemorrágico del procedimiento: <b>${cat}</b>; ClCr ${cr} ml/min.</li>
+      <li>${d==="dabi"?"Semivida 10-14 h (ClCr > 50) y 18-24 h (ClCr 30-50): ajuste más preciso por función renal.":(cr>30?"Anti-Xa: semivida 8-12 h con ClCr > 30 ml/min.":"ClCr < 30 ml/min: semivida prolongada, suspensión 1 día más larga.")}</li>
+      <li><b>No</b> se recomienda tratamiento puente con HBPM/HNF en pacientes con ACOD.</li></ul></div>`;
+    h+=`<div class="alert a-grn"><b>Reinicio</b><ul><li>Inicio de acción rápido (2-4 h): reiniciar a dosis plena en las primeras 24 h${b.high?"; <b>en este procedimiento de alto riesgo hemorrágico, a las 48-72 h</b>":""}.</li><li>Retrasar a 48-72 h si no se alcanza competencia hemostática.</li>${b.high?`<li>Hasta reiniciar, considerar tromboprofilaxis con HBPM si la hemostasia lo permite <span class="note">(práctica habitual; no detallado en el documento)</span>.</li>`:""}</ul></div>`;
+    h+=buildTL([R(name,d,x=>x<=last?"take":x<0?"off":x===0?"surg":x<restartDay?"hemo":x===restartDay?"rest":"take")],-6);
+    txt.push(`${name} (ClCr ${cr} ml/min, riesgo hemorrágico ${cat}): última toma día ${last} (${off} días sin fármaco). Sin puente. Reinicio a las ${b.high?"48-72":"24"} h según hemostasia.`);
+  }
+  return{h,txt};
+}
+function acUrgent(d,cr){
+  const avk=isAVK(d),name=DN[d];
+  let h=`<div class="alert a-red"><b>${S.urg==="emer"?"Cirugía EMERGENTE (< 6 h)":S.urg==="urg"?"Cirugía URGENTE (6-24 h)":"Urgencia diferida (> 24 h)"} con ${name}</b><ul>
+    <li>Suspender el anticoagulante. Comprobar fármaco, dosis y hora de la última toma.</li>
+    <li>Pruebas: ${avk?"INR":"TP, TTPa y, si disponible, niveles plasmáticos de ACOD"}; función renal y hepática.</li>
+    <li>Medidas locales de hemostasia; soporte (transfusión, fluidos, vasoactivos) si sangrado o inestabilidad.</li>
+    ${S.urg==="emer"?"<li>Valorar reversor específico si está disponible y es necesario, o CCP.</li>":""}
+    ${!avk?"<li>Como norma general, <b>evitar la anestesia neuroaxial</b>.</li>":""}</ul></div>`;
+  if(avk){
+    h+=`<div class="card" style="margin:0"><h3 style="margin-top:0">Algoritmo AVK (Figura 4)</h3>
+    <table class="dt"><tr><th>INR</th><th>Actuación</th></tr>
+    <tr><td>&lt; 1,5</td><td>Cirugía sin demora</td></tr>
+    <tr><td>&gt; 1,5 y cirugía demorable 6-12 h</td><td>Vitamina K 10 mg i.v.; repetir INR a las 6-8 h (evita dosis repetidas innecesarias)</td></tr>
+    <tr><td>&gt; 1,5 y cirugía NO demorable</td><td>Vitamina K 10 mg i.v. + <b>CCP</b> según INR</td></tr></table>
+    <table class="dt"><tr><th>INR</th><th>CCP (UI/kg)*</th></tr><tr><td>2,0-3,9</td><td>25</td></tr><tr><td>4,0-6,0</td><td>35</td></tr><tr><td>&gt; 6,0</td><td>50</td></tr></table>
+    <div class="note">* Según ficha técnica. Plasma fresco congelado (15-30 ml/kg): segunda elección, solo eficaz con AVK; no indicado si hay CCP.</div></div>`;
+  }else{
+    const dabi=d==="dabi";
+    h+=`<div class="card" style="margin:0"><h3 style="margin-top:0">Algoritmo ACOD (Figura 5)</h3>
+    <ul style="padding-left:18px;margin:0">
+    <li>Si disponible, medir niveles de ACOD: <b>&lt; 30 ng/ml</b> = ausencia de efecto relevante.</li>
+    <li>Test cualitativos: ${dabi?"TTPa ratio ≤ 1,2":d==="riva"?"TP ratio ≤ 1,2":"TP/TTPa no fiables para "+name+" (valorar cumplimiento)"} descarta con alta probabilidad actividad significativa.</li>
+    <li><b>¿Cirugía diferible?</b> Sí → operar cuando: ${dabi?"última toma > 24 h, ClCr > 50 ml/min y TTPa ratio ≤ 1,2":"última toma > 16 h, ClCr > 30 ml/min"+(d==="riva"?" y TP ratio ≤ 1,2":"")}${cr?` <span class="note">(ClCr actual ${cr} ml/min)</span>`:""}. Si no se cumple → valorar reversión.</li>
+    <li><b>No diferible → valorar reversión:</b>
+      ${dabi?"<b>Idarucizumab</b> 5 g i.v. (2 viales de 2,5 g separados ≤ 15 min).":
+      d==="edo"?"Andexanet <b>no</b> tiene indicación para edoxabán → <b>CCP 25-50 UI/kg</b>.":
+      `<b>Andexanet alfa</b>:<br>– Última dosis ≥ 8 h, o ${d==="riva"?"rivaroxabán ≤ 10 mg":"apixabán ≤ 5 mg"} → dosis baja: 400 mg (30 mg/min) + 4 mg/min 120 min.<br>– Última dosis &lt; 8 h con ${d==="riva"?"rivaroxabán &gt; 10 mg":"apixabán &gt; 5 mg"}, o dosis/hora desconocida → dosis alta: 800 mg (30 mg/min) + 8 mg/min 120 min.`}
+      <br>Alternativa: <b>CCP 25-50 UI/kg</b>.</li></ul></div>`;
+  }
+  return h;
+}
+
+/* ======================= ANTIAGREGACIÓN: LÓGICA ======================= */
+function apDays(drug){const cabg=$("cabg").checked;return{aas:3,clopi:5,tica:cabg?3:5,prasu:7,trifl:5,cilo:2,dipi:2}[drug]}
+function apPlan(thr,b){
+  const a=apParse(),ind=$("apInd").value;let h="",txt=[];
+  const drugs=[a.aas?"aas":null,a.p2y12,a.other].filter(Boolean);
+  const neuro=b.p.s==="Neurocirugía";
+  const dayTab=`<table class="dt"><tr><th>Fármaco</th><th>Suspender antes</th></tr><tr><td>AAS</td><td>3 días</td></tr><tr><td>Clopidogrel</td><td>5 días</td></tr><tr><td>Ticagrelor</td><td>5 días (3 días en cirugía de revascularización coronaria)</td></tr><tr><td>Prasugrel</td><td>7 días</td></tr><tr><td>Triflusal</td><td>3-5 días</td></tr><tr><td>Cilostazol / dipiridamol</td><td>48 h</td></tr></table>`;
+  const restart=`<div class="alert a-grn"><b>Reinicio</b>Reiniciar la antiagregación en las primeras 24 h tras la intervención; 48-72 h si alto riesgo hemorrágico o si no se alcanza competencia hemostática.</div>`;
+  if(S.urg!=="prog"){
+    h+=`<div class="alert a-red"><b>Antiagregación y cirugía ${S.urg==="emer"?"emergente (< 6 h)":S.urg==="urg"?"urgente (6-24 h)":"urgente diferida (> 24 h)"}</b><ul>
+      <li>La antiagregación <b>no justifica retrasar</b> la cirugía si la situación clínica no lo permite.</li>
+      ${S.urg==="dif"?"<li>Si es diferible el tiempo suficiente: valorar mantener o retirar cada fármaco (y puente en casos seleccionados) tras evaluación multidisciplinar. Si disponibles, los <b>test de función plaquetar</b> (preferible point-of-care) pueden acortar la suspensión del P2Y12.</li>":""}
+      <li>Si no es diferible: hemostasia quirúrgica exhaustiva y <b>transfusión de plaquetas solo si hemorragia</b> (no profiláctica).</li>
+      ${a.p2y12==="tica"?"<li><b>Ticagrelor:</b> transfusión de plaquetas poco eficaz (unión reversible y metabolito activo). En casos seleccionados (p. ej., cirugía cardiaca), hemoperfusión con filtro adsorbente en la CEC (elimina la mayor parte en 2-3 h). Bentracimab: aún no disponible.</li>":""}
+      ${a.p2y12==="clopi"||a.p2y12==="prasu"?"<li>Clopidogrel/prasugrel: si hemorragia, 2-4 unidades de plaquetas, idealmente ≥ 6 h tras la última toma.</li>":""}
+      <li>Desmopresina y otros procoagulantes: no indicados de rutina (pueden aumentar el riesgo trombótico).</li></ul></div>`;
+    if(S.urg==="dif")h+=`<div class="card" style="margin:0"><h3 style="margin-top:0">Test de función plaquetar (material adicional, Tabla 3)</h3><table class="dt"><tr><th>Test</th><th>Alta reactividad</th><th>Baja reactividad</th></tr><tr><td>VerifyNow P2Y12*</td><td>208 URP</td><td>85 URP</td></tr><tr><td>Multiplate*</td><td>46 U</td><td>18 U</td></tr><tr><td>VASP</td><td>50% IRP</td><td>16% IRP</td></tr><tr><td>TEG</td><td>47 mm</td><td>31 mm</td></tr><tr><td>LTA 5 µM ADP</td><td>46% MAP</td><td>ND</td></tr><tr><td>LTA 20 µM ADP</td><td>59% MAP</td><td>ND</td></tr></table><div class="note">* Point-of-care.</div></div>`;
+    txt.push("Antiagregación en cirugía no programada: no retrasar si la clínica no lo permite; transfusión de plaquetas solo si hemorragia.");
+    return{h,txt};
+  }
+  if(b.alg==="min"){
+    h+=`<div class="alert a-blu"><b>Riesgo hemorrágico mínimo → NO suspender la antiagregación</b>Mantener el tratamiento antiagregante durante el procedimiento.</div>`;drugs.forEach(x=>R(DN[x],x,dd=>dd===0?"takesurg":"take"));
+    txt.push("Riesgo hemorrágico mínimo: no suspender la antiagregación.");return{h,txt};
+  }
+  const keep=new Set(),stop=new Set();let extra=[],bridge=false,box="";
+  if(thr==="bajo"){
+    if(b.alg==="bajo"){
+      if(a.aas)keep.add("aas");if(a.p2y12)stop.add(a.p2y12);if(a.other)stop.add(a.other);
+      box=`<div class="alert a-grn"><b>Riesgo trombótico bajo + hemorrágico bajo → mantener AAS, suspender P2Y12</b><ul>
+        <li>Si se mantiene AAS, dosis &lt; 200 mg/día (si acude con dosis mayores, no se justifica posponer).</li>
+        ${!a.aas&&a.p2y12?`<li>En monoterapia con P2Y12: suspender ${apDays(a.p2y12)} días antes. <span class="note">El algoritmo prevé mantener AAS; valorar sustituir temporalmente por AAS 100 mg/día (interpretación, individualizar).</span></li>`:""}
+        ${ind==="prim"?"<li>Prevención primaria: se puede suspender y debería valorarse su <b>discontinuación permanente</b>.</li>":""}</ul></div>`;
+    }else{
+      drugs.forEach(x=>stop.add(x));
+      box=`<div class="alert a-amb"><b>Riesgo trombótico bajo + hemorrágico moderado-alto → suspender la antiagregación</b><ul>
+        ${a.aas?"<li>En monoterapia con AAS y bajo riesgo trombótico (p. ej., stent > 12 meses sin factores adicionales), mantenerla no cambia eventos isquémicos ni hemorrágicos: valorar su suspensión, sobre todo con riesgo hemorrágico moderado-alto.</li>":""}
+        ${ind==="prim"?"<li>Prevención primaria: valorar <b>discontinuación permanente</b>.</li>":""}</ul></div>`;
+    }
+  }else{
+    const goal=apRisk().track==="sca"?"> 12 meses":"> 6 meses";
+    h+=`<div class="alert a-red"><b>Riesgo trombótico ${thr==="alto"?"ALTO":"MODERADO"}: ¿la cirugía es diferible?</b>Si lo es, <b>posponer</b> hasta que el riesgo trombótico sea bajo (${goal} desde el episodio${$("apDCB").checked?"; con balón farmacoactivo el periodo crítico es más corto":""}). Si no es diferible → individualizar con decisión multidisciplinar:</div>`;
+    if(b.alg==="bajo"){
+      if(a.aas)keep.add("aas");
+      const lt1=apRisk().t<=1;
+      if(a.p2y12){lt1?keep.add(a.p2y12):stop.add(a.p2y12)}
+      if(a.other)stop.add(a.other);
+      box=`<div class="alert a-amb"><b>Riesgo hemorrágico bajo</b><ul><li>Mantener AAS 100 mg/día.</li><li>Mantener inhibidor P2Y12 si el episodio agudo fue hace &lt; 1 mes; valorar suspenderlo en el resto.</li>${a.dapt&&lt1?"<li>TAPD: en general, mantener AAS + P2Y12 los primeros 30 días tras el episodio en procedimientos de bajo riesgo hemorrágico.</li>":""}${!a.aas&&a.p2y12&&!lt1?`<li>Monoterapia con P2Y12: <span class="note">valorar sustituir temporalmente por AAS 100 mg/día (interpretación, individualizar).</span></li>`:""}</ul></div>`;
+    }else{
+      if(a.aas)(neuro?stop:keep).add("aas");
+      if(a.p2y12)stop.add(a.p2y12);if(a.other)stop.add(a.other);
+      bridge=thr==="alto"&&!!a.p2y12;
+      box=`<div class="alert a-red"><b>Riesgo hemorrágico moderado-alto</b><ul><li>Valorar mantener AAS 100 mg/día${neuro?". <b>Neurocirugía: puede requerirse suspender también el AAS</b>":" (en casos excepcionales, p. ej. neurocirugía, puede requerirse suspenderlo)"}.</li><li>Suspender el inhibidor P2Y12${bridge?" y <b>sustituir por tratamiento puente i.v.</b> (inhibidores GP IIb/IIIa o cangrelor), al ser el riesgo trombótico alto":""}.</li></ul></div>`;
+    }
+  }
+  h+=box;
+  if(bridge){
+    const p=a.p2y12,start=p==="prasu"?-4:-3;
+    h+=`<div class="alert a-pur"><b>Puente antiagregante i.v. (material adicional, Figura 1)</b><ul>
+      <li>Suspender ${DN[p]} el día ${p==="prasu"?"−7":"−5"}; iniciar puente el día ${start}.</li>
+      <li><b>Cangrelor</b> 0,75 µg/kg/min → suspender 1-6 h antes de la cirugía.</li>
+      <li>o <b>Tirofibán</b> 0,1 µg/kg/min (0,05 si ClCr &lt; 50) / <b>Eptifibatida</b> 2 µg/kg/min (1 si ClCr &lt; 50) → suspender 3-6 h antes.</li>
+      <li>A las 4-6 h tras la cirugía: dosis de carga de clopidogrel 300-600 mg v.o. (o reiniciar cangrelor si no es posible la vía oral).</li>
+      <li>Reservado a casos excepcionales con riesgo trombótico y hemorrágico elevados.</li></ul></div>`;
+  }
+  const rows=drugs.map(x=>{const n=apDays(x),last=-(n+1),k=keep.has(x);
+    return R(DN[x]+(k?" (mantener)":` (−${n} d)`),x,dd=>k?(dd===0?"takesurg":"take"):(dd<=last?"take":dd<0?"off":dd===0?"surg":dd<(b.high?2:1)?"hemo":dd===(b.high?2:1)?"rest":"take"))});
+  if(bridge){const st=a.p2y12==="prasu"?-4:-3;rows.push(R("Puente i.v.","iv",dd=>dd>=st&&dd<0?"iv":dd===0?"ivstop":dd===1?"ivload":null))}
+  if(rows.length)h+=buildTL(rows,-8);
+  h+=restart+`<details><summary class="note">Pautas de suspensión de antiagregantes</summary>${dayTab}</details>`;
+  txt.push(`Antiagregación (${drugs.map(x=>DN[x]).join(" + ")}): `+[...keep].map(x=>"mantener "+DN[x]).concat([...stop].map(x=>`suspender ${DN[x]} ${apDays(x)} días antes`)).join("; ")+(bridge?"; puente i.v. con cangrelor o GP IIb/IIIa":"")+". Reinicio en las primeras 24 h (48-72 h si alto riesgo hemorrágico).");
+  return{h,txt};
+}
+function pbfHas(ix){return ix.some(i=>document.querySelector(`.pbf[data-i="${i}"]`).checked)}
+
+/* ======================= RENDER RESULTADO ======================= */
+let SUMMARY="";
+function render(){
+  SCHED=[];const b=bleed();let h="",txt=[];
+  const ac=S.tipo!=="ap"?acRisk():null,ap=S.tipo!=="ac"?apRisk():null;
+  const urgL={prog:"Programada",dif:"Urgencia diferida (> 24 h)",urg:"Urgente (6-24 h)",emer:"Emergente (< 6 h)"}[S.urg];
+  h+=`<div class="card"><h2>Resumen de riesgos</h2><div class="summary">`;
+  if(ac)h+=`<div class="sbox"><div class="k">Riesgo tromboembólico (anticoagulación)</div><div class="v">${badge(ac.level)}</div><div class="d">${ac.why.join("; ")}</div></div>`;
+  if(ap)h+=`<div class="sbox"><div class="k">Riesgo trombótico (antiagregación)</div><div class="v">${badge(ap.level)}</div><div class="d">${ap.why.join("; ")}</div></div>`;
+  h+=`<div class="sbox"><div class="k">Riesgo hemorrágico del procedimiento</div><div class="v"><span class="risk ${b.cls}">${b.label}</span></div><div class="d">${b.p.t} · ${b.p.s} · ${urgL}</div></div></div>`;
+  b.notes.forEach(n=>h+=`<div class="pearl">${n}</div>`);
+  const nb=[...document.querySelectorAll(".pbf:checked")].map(e=>PBF[+e.dataset.i]);
+  if(nb.length)h+=`<div class="alert a-amb"><b>Factores del paciente que aumentan el riesgo hemorrágico</b>${nb.join(", ")}. Tenerlos en cuenta para prolongar la suspensión o retrasar el reinicio, especialmente en el límite entre categorías.</div>`;
+  h+=`</div>`;
+  txt.push(`Procedimiento: ${b.p.t} (${b.p.s}), ${urgL}. Riesgo hemorrágico: ${b.label}.`);
+  if(ac){txt.push(`Anticoagulación con ${DN[$("acDrug").value]}: riesgo tromboembólico ${LV[ac.level][0].toLowerCase()} (${ac.why.join("; ")}).`);
+    const r=acPlan(ac.level,b);h+=`<div class="card"><h2>Anticoagulación · ${DN[$("acDrug").value]}</h2>${r.h}</div>`;txt.push(...r.txt)}
+  if(ap){txt.push(`Antiagregación: riesgo trombótico ${LV[ap.level][0].toLowerCase()} (${ap.why.join("; ")}).`);
+    const r=apPlan(ap.level,b);h+=`<div class="card"><h2>Antiagregación · ${apParse().v.split("+").map(x=>DN[x]).join(" + ")}</h2>${r.h}</div>`;txt.push(...r.txt)}
+  if(S.tipo==="both")h+=`<div class="alert a-amb"><b>Anticoagulación + antiagregación</b>El documento no establece un algoritmo combinado: aplicar cada uno y decidir de forma multidisciplinar. La antiagregación concomitante es en sí un factor de riesgo hemorrágico; revisar si la indicación de antiagregación sigue vigente.</div>`;
+  if(b.p.t.startsWith("Fractura de cadera"))h+=`<div class="pearl">Fractura de cadera: demorar la cirugía más de 24-48 h aumenta la morbimortalidad; no esperar a la normalización completa si la hemostasia puede manejarse.</div>`;
+  h+=`<div class="pearl">La estratificación empírica es un punto de partida; debe integrarse con el juicio clínico y las características individuales del paciente y de la intervención.</div>`;
+  $("out").innerHTML=h;SUMMARY=txt.join("\n");
+}
+function copySummary(){
+  navigator.clipboard.writeText("Manejo perioperatorio de antitrombóticos (Consenso 2025, Rev Esp Cardiol 2026)\n"+SUMMARY).then(()=>$("copyok").textContent="Copiado ✓").catch(()=>{$("copyok").textContent="No se pudo copiar"});
+}
+
+/* ======================= PASO 4 · INFORME PARA EL PACIENTE ======================= */
+const BR={aceno:"Acenocumarol (Sintrom®)",warf:"Warfarina (Aldocumar®)",dabi:"Dabigatrán (Pradaxa®)",api:"Apixabán (Eliquis®)",riva:"Rivaroxabán (Xarelto®)",edo:"Edoxabán (Lixiana®)",aas:"Ácido acetilsalicílico (Adiro®, aspirina)",clopi:"Clopidogrel (Plavix®, Iscover®)",tica:"Ticagrelor (Brilique®)",prasu:"Prasugrel (Efient®)",trifl:"Triflusal (Disgren®)",cilo:"Cilostazol (Pletal®)",dipi:"Dipiridamol (Persantin®)",hbpm:"Heparina en inyección",iv:"Medicación intravenosa (en el hospital)"};
+const SN={...DN,hbpm:"Heparina",iv:"Tto. intravenoso"};
+const AVKK=["aceno","warf"];
+function cellTxt(code,k){
+  const n=SN[k];
+  if(k==="iv")return code==="ivload"?["hos","Hospital: dosis de carga de clopidogrel"]:["hos","Hospital: tratamiento intravenoso"];
+  if(k==="hbpm")return({lmwh:["inj","Heparina: inyección mañana y noche"],lmwhH:["inj","Heparina: SOLO inyección de la mañana"],off:["no","NO heparina"],hemo:["wait","Heparina: esperar indicación médica"]})[code]||null;
+  return({take:["yes","Tomar "+n],takesurg:["yes","Tomar "+n+" (también hoy)"],half:["half",n+": solo la dosis de la mañana. NO la de la noche"],off:["no","NO tomar "+n],nodose:["no","NO tomar "+n],surg:["no","NO tomar "+n],rest:["rest","Reiniciar "+n+" *"],hemo:["wait",n+": todavía no. Esperar indicación médica"],night:["wait",n+": por la noche, solo si lo indica el médico"]})[code]||null;
+}
+const WD=["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],MO=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+function dDate(d){const v=$("pDate").value;if(!v)return null;const t=new Date(v+"T12:00:00");t.setDate(t.getDate()+d);return t}
+function dLong(d){const t=dDate(d);const rel=d===0?"el día de la operación":d<0?`${-d} día${d<-1?"s":""} antes de la operación`:`${d} día${d>1?"s":""} después de la operación`;
+  return t?`el <b>${WD[t.getDay()]} ${t.getDate()} de ${MO[t.getMonth()]}</b> (${rel})`:`<b>${rel}</b>`}
+function relLab(d){return d===0?"DÍA DE LA OPERACIÓN":d<0?`${-d} día${d<-1?"s":""} antes`:`${d} día${d>1?"s":""} después`}
+function esc(s){return String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function drugSummary(it){
+  const k=it.key,n=BR[k]||it.label,codes={};DAYS.forEach(d=>codes[d]=it.fn(d));
+  const neg=DAYS.filter(d=>d<0),pos=DAYS.filter(d=>d>0);
+  if(k==="iv")return `<li><b>Tratamiento puente en el hospital:</b> unos días antes de la operación ingresará para recibir un tratamiento intravenoso que sustituye temporalmente a su antiagregante. El equipo le indicará el día de ingreso.</li>`;
+  if(k==="hbpm"){const inj=neg.filter(d=>codes[d]==="lmwh"),half=neg.find(d=>codes[d]==="lmwhH");const dose=$("pHep").value.trim();
+    return `<li><b>Heparina en inyección${dose?" ("+esc(dose)+")":""}:</b> póngase una inyección cada 12 horas (mañana y noche) desde ${dLong(inj[0])}${inj.length>1?" hasta "+dLong(inj[inj.length-1]):""}.${half!==undefined?` ${dLong(half).replace(/^el/,"El")}, póngase <b>solo la inyección de la mañana</b>; esa es la última antes de la operación.`:""} Después de la operación el equipo le dirá cuándo volver a ponérsela; normalmente seguirá con ella hasta que el análisis de coagulación (INR) esté en rango.</li>`}
+  if(neg.every(d=>["take"].includes(codes[d]))&&["takesurg"].includes(codes[0]))return `<li><b>${n}:</b> <b>NO lo deje.</b> Siga tomándolo como siempre, también el día de la operación (con un sorbo de agua).</li>`;
+  const lastTake=Math.max(...neg.filter(d=>["take","half"].includes(codes[d])));
+  const firstOff=neg.find(d=>["off","nodose"].includes(codes[d]));const rest=pos.find(d=>codes[d]==="rest");
+  let s=`<li><b>${n}:</b> `;
+  if(codes[-1]==="half"&&firstOff===undefined)s+=`tómelo como siempre hasta ${dLong(-2)}. ${dLong(-1).replace(/^el/,"El")}, tome <b>solo la dosis de la mañana</b> (no la de la noche). <b>No lo tome el día de la operación.</b>`;
+  else if(firstOff===undefined)s+=`tómelo como siempre hasta ${dLong(-1)}. <b>No lo tome el día de la operación.</b>`;
+  else s+=`tómelo por última vez ${dLong(lastTake)}. <b>No lo tome</b> desde ${dLong(firstOff)} hasta la operación, ambos incluidos.`;
+  if(rest!==undefined)s+=` Vuelva a tomarlo ${dLong(rest)}, <b>siempre que el equipo médico se lo confirme</b> (que no haya sangrado).`;
+  if(codes[0]==="night")s+=` Es posible que el médico le indique tomarlo ya la noche de la operación.`;
+  return s+`</li>`;
+}
+
+function buildReport(){
+  if(S.urg!=="prog"||!SCHED.length)return null;
+  const b=bleed();
+  const items=SCHED.filter(it=>it.key);
+  const ch=items.map(it=>DAYS.find(d=>{const c=it.fn(d);return c&&!["take","takesurg"].includes(c)})).filter(d=>d!==undefined);
+  const start=Math.max(-8,(ch.length?Math.min(...ch):-1)-1),end=3;
+  const range=DAYS.filter(d=>d>=start&&d<=end);
+  const hasDate=!!$("pDate").value;
+  // celdas
+  const cell=d=>{const t=dDate(d);const lines=items.map(it=>{const c=it.fn(d);return c?cellTxt(c,it.key):null}).filter(Boolean);
+    if(d===0)lines.unshift(["op","OPERACIÓN"+($("pTime").value?" · "+$("pTime").value+" h":"")]);
+    if(d===0&&items.some(it=>AVKK.includes(it.key)))lines.push(["hos","Análisis de coagulación (INR) antes de operar"]);
+    return `<div class="rc${d===0?" r0":""}"><div class="rh">${t?`<span class="rw">${WD[t.getDay()].slice(0,3)}</span> ${t.getDate()} ${MO[t.getMonth()].slice(0,3)}`:`Día ${d>0?"+":""}${d}`}<div class="rr">${relLab(d)}</div></div>${lines.map(([k,x])=>`<div class="ri i-${k}">${x}</div>`).join("")}</div>`};
+  let cal="";
+  if(hasDate){
+    const s0=dDate(start),off=(s0.getDay()+6)%7;const total=Math.ceil((off+range.length)/7)*7;
+    cal=`<div class="rcal">${["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"].map(w=>`<div class="rwd">${w}</div>`).join("")}`;
+    for(let i=0;i<total;i++){const d=start+i-off;cal+=d>=start&&d<=end?cell(d):`<div class="rc rx"></div>`}
+    cal+=`</div>`;
+  }else cal=`<div class="rcal">${range.map(cell).join("")}</div><p class="rn">Escriba la fecha encima de cada día si no está indicada.</p>`;
+  const pName=esc($("pName").value),proc=esc($("pProc").value||b.p.t);
+  const avk=items.some(it=>AVKK.includes(it.key));
+  return `
+<div class="rsec rhead"><div class="rt">Instrucciones sobre su medicación<br><span>antes y después de su intervención</span></div>
+ <table class="rinfo"><tr><td>Paciente</td><td>${pName||"______________________________"}</td></tr>
+ <tr><td>Intervención</td><td>${proc}</td></tr>
+ <tr><td>Fecha</td><td>${hasDate?dLong(0).replace(/ \(.*\)$/,"").replace(/^el /,""):"____ / ____ / ________"}${$("pTime").value?" · "+$("pTime").value+" h":""}</td></tr>
+ ${$("pPlace").value?`<tr><td>Lugar</td><td>${esc($("pPlace").value)}</td></tr>`:""}</table></div>
+<div class="rsec"><h3>Qué tiene que hacer con cada medicamento</h3><ul class="rl">${items.map(drugSummary).join("")}</ul>
+ <p class="rn">* Reinicie la medicación después de la operación solo cuando el equipo médico se lo confirme. Si está ingresado, se la darán en el hospital.</p></div>
+<div class="rsec"><h3>Calendario</h3>${cal}
+ <div class="rleg"><span class="i-yes">Tomar</span><span class="i-no">NO tomar</span><span class="i-half">Dosis parcial</span><span class="i-inj">Inyección</span><span class="i-rest">Reiniciar</span><span class="i-wait">Esperar indicación</span><span class="i-hos">En el hospital</span></div></div>
+<div class="rsec"><h3>Recomendaciones importantes</h3><ul class="rl">
+ <li>Siga tomando el <b>resto de su medicación habitual</b> salvo que le indiquen lo contrario.</li>
+ <li>No tome <b>antiinflamatorios</b> (ibuprofeno, naproxeno, diclofenaco…) sin consultar. Para el dolor puede usar <b>paracetamol</b>.</li>
+ <li>Si se olvida de una dosis o tiene dudas, <b>no tome dosis dobles</b>: consulte.</li>
+ ${avk?"<li>Antes de la operación le harán un <b>análisis de coagulación (INR)</b>.</li>":""}
+ <li>Traiga este documento y la lista de toda su medicación el día de la intervención.</li></ul></div>
+<div class="rsec ralarm"><h3>Acuda a Urgencias o llame al 112 si presenta</h3><ul class="rl">
+ <li>Sangrado que no se detiene, heces negras, orina roja o vómitos con sangre.</li>
+ <li>Dolor o hinchazón de una pierna, falta de aire o dolor en el pecho.</li>
+ <li>Pérdida de fuerza o de sensibilidad en un lado del cuerpo, dificultad para hablar o pérdida de visión.</li></ul></div>
+<div class="rsec rfoot">${$("pDoc").value?`Médico: <b>${esc($("pDoc").value)}</b><br>`:""}${$("pTel").value?`Teléfono de contacto: <b>${esc($("pTel").value)}</b><br>`:""}
+ Estas instrucciones se han preparado para su caso concreto. No modifique su tratamiento sin consultar con su médico.<br>Fecha de emisión: ${new Date().toLocaleDateString("es-ES")}</div>`;
+}
+const REPCSS=`
+.rep{background:#fff;color:#1c2430;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:13px;line-height:1.45;padding:22px 24px;max-width:794px;margin:0 auto}
+.rep .rsec{margin-bottom:14px}
+.rep h3{font-size:14px;margin:0 0 8px;color:#8e1b2c;border-bottom:2px solid #f0d6da;padding-bottom:4px}
+.rep .rhead{border-bottom:3px solid #8e1b2c;padding-bottom:10px}
+.rep .rt{font-size:20px;font-weight:800;color:#8e1b2c;line-height:1.2;margin-bottom:10px}
+.rep .rt span{font-size:14px;font-weight:600;color:#5f6b7a}
+.rep .rinfo{border-collapse:collapse;font-size:13px}
+.rep .rinfo td{padding:3px 10px 3px 0;vertical-align:top}
+.rep .rinfo td:first-child{color:#5f6b7a;font-weight:700;white-space:nowrap}
+.rep .rl{margin:0;padding-left:18px}.rep .rl li{margin:5px 0}
+.rep .rn{font-size:11px;color:#5f6b7a;margin:6px 0 0}
+.rep .rcal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.rep .rwd{text-align:center;font-size:10.5px;font-weight:800;color:#5f6b7a;text-transform:uppercase;padding:2px 0}
+.rep .rc{border:1.5px solid #dfe3e8;border-radius:7px;padding:4px;min-height:92px;font-size:10.5px;line-height:1.25;background:#fff}
+.rep .rc.rx{background:#f7f8fa;border-style:dashed}
+.rep .rc.r0{border:2.5px solid #8e1b2c;background:#fff7f8}
+.rep .rh{font-weight:800;font-size:12px;margin-bottom:3px}.rep .rw{text-transform:capitalize}
+.rep .rr{font-size:9.5px;font-weight:600;color:#5f6b7a}
+.rep .ri{border-radius:4px;padding:2px 4px;margin-top:3px;font-weight:600}
+.rep .i-yes{background:#dff1e5;color:#155c33}.rep .i-no{background:#fbe0dc;color:#a52a1d}.rep .i-half{background:#fff1c9;color:#7a5000}
+.rep .i-inj{background:#efe8f8;color:#5a2f8c}.rep .i-rest{background:#dbeafc;color:#174a85}.rep .i-wait{background:#f1f2f4;color:#4a5562}
+.rep .i-hos{background:#e7f0fb;color:#1d4f8a}.rep .i-op{background:#8e1b2c;color:#fff;text-align:center}
+.rep .rleg{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;font-size:10.5px}.rep .rleg span{border-radius:4px;padding:2px 6px;font-weight:600}
+.rep .ralarm{border:2px solid #c0392b;background:#fdecea;border-radius:8px;padding:10px 12px}.rep .ralarm h3{border:0;color:#c0392b}
+.rep .rfoot{font-size:11.5px;color:#5f6b7a;border-top:1px solid #dfe3e8;padding-top:8px}
+`;
+document.head.insertAdjacentHTML("beforeend",`<style>${REPCSS}
+@media(max-width:600px){.rep{padding:14px 10px}.rep .rcal{gap:2px}.rep .rc{font-size:8.5px;padding:2px;min-height:70px}.rep .rh{font-size:10px}.rep .rr{font-size:8px}.rep .rwd{font-size:8px}}</style>`);
+function renderP4(){
+  if(!$("pProc").value&&S.proc!==null)$("pProc").value=ALL[S.proc].t;
+  const hasHep=SCHED.some(it=>it.key==="hbpm");$("pHepBox").classList.toggle("hide",!hasHep);
+  const r=buildReport();
+  $("rep").innerHTML=r||`<div class="alert a-amb"><b>No disponible</b>Las instrucciones para el paciente solo se generan para intervenciones programadas.</div>`;
+  $("dlBox").classList.toggle("hide",!r);
+}
+["pName","pDate","pTime","pProc","pPlace","pHep","pDoc","pTel"].forEach(id=>$(id).addEventListener("input",renderP4));
+let DL=null;
+try{window.claude&&claude.use&&claude.use("downloads").then(d=>{DL=d;$("dlPdf").disabled=!d;$("dlHtml").disabled=!d;if(!d)$("dlMsg").textContent="La descarga no está disponible en esta vista."})}catch(e){}
+function loadJS(src){return new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=ko;document.head.appendChild(s)})}
+function fname(ext){const n=$("pName").value.trim().replace(/[^\wáéíóúñÁÉÍÓÚÑ ]/g,"").replace(/\s+/g,"_");return `Instrucciones_medicacion${n?"_"+n:""}.${ext}`}
+async function dlErr(e){$("dlMsg").textContent=e&&e.code==="declined"?"Descarga cancelada.":"No se pudo descargar ("+(e&&e.code||e)+")."}
+async function downloadPDF(){
+  if(!DL)return;$("dlMsg").textContent="Generando PDF…";
+  try{
+    if(!window.html2canvas)await loadJS("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+    if(!window.jspdf)await loadJS("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+    const host=document.createElement("div");host.style.cssText="position:fixed;left:-10000px;top:0;width:794px";
+    host.innerHTML=`<div class="rep" style="width:794px;max-width:none;padding:0">${buildReport()}</div>`;document.body.appendChild(host);
+    const pdf=new jspdf.jsPDF({unit:"mm",format:"a4"});const M=12,W=210-2*M,H=297-2*M;let y=M;
+    for(const sec of host.querySelectorAll(".rsec")){
+      const c=await html2canvas(sec,{scale:2,backgroundColor:"#ffffff"});
+      const h=c.height*W/c.width;
+      if(y+h>297-M&&y>M){pdf.addPage();y=M}
+      pdf.addImage(c.toDataURL("image/jpeg",0.92),"JPEG",M,y,W,Math.min(h,H));y+=Math.min(h,H)+4;
+    }
+    host.remove();
+    await DL.save({filename:fname("pdf"),data:pdf.output("blob")});$("dlMsg").textContent="PDF descargado ✓";
+  }catch(e){dlErr(e)}
+}
+async function downloadHTML(){
+  if(!DL)return;
+  const html=`<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Instrucciones sobre su medicación</title><style>${REPCSS}
+body{margin:0;background:#eef0f3}.pb{display:block;margin:14px auto;padding:10px 22px;border:0;border-radius:8px;background:#8e1b2c;color:#fff;font-weight:700;font-size:15px;cursor:pointer}
+@page{size:A4;margin:10mm}@media print{body{background:#fff}.pb{display:none}.rep{padding:0}.rsec{break-inside:avoid}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head>
+<body><button class="pb" onclick="window.print()">Imprimir</button><div class="rep">${buildReport()}</div></body></html>`;
+  try{await DL.save({filename:fname("html"),data:html});$("dlMsg").textContent="Archivo descargado ✓ Ábralo y pulse «Imprimir».";}catch(e){dlErr(e)}
+}
+
+renderList();upd();
+</script>
+</body>
+</html>
